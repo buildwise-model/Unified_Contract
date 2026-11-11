@@ -5043,6 +5043,32 @@ const wcCopyRich = async (plain, html) => {
     ta.remove();
   }
 };
+const wcDownloadWithData = async () => {
+  const code = await wcPack(wcSharePayload());
+  const id = `${Date.now().toString(36)}${code.length.toString(36)}`;
+  const doc = document.documentElement.cloneNode(true);
+  const rootEl = doc.querySelector('#root');
+  if (rootEl) rootEl.innerHTML = '';
+  doc.querySelectorAll('#wc-embed').forEach(n => n.remove());
+  const head = doc.querySelector('head');
+  const sc = document.createElement('script');
+  sc.id = 'wc-embed';
+  sc.textContent = `window.WC_EMBED = ${JSON.stringify(code)}; window.WC_EMBED_ID = ${JSON.stringify(id)};`;
+  head.insertBefore(sc, head.firstChild);
+  const html = '<!DOCTYPE html>\n' + doc.outerHTML;
+  const url = URL.createObjectURL(new Blob([html], {
+    type: 'text/html;charset=utf-8'
+  }));
+  const a = document.createElement('a');
+  const d = new Date();
+  const stamp = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  a.href = url;
+  a.download = `النموذج_المالي_للعقد_الموحد_الطائف_والأحساء_${stamp}.html`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+};
 const ShareModal = ({
   share,
   onClose
@@ -7700,6 +7726,17 @@ const App = () => {
   const [shareInfo, setShareInfo] = useState(null);
   const [sharing, setSharing] = useState(false);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [fileDone, setFileDone] = useState(false);
+  const downloadFile = async () => {
+    saveAllData();
+    try {
+      await wcDownloadWithData();
+      setFileDone(true);
+      setTimeout(() => setFileDone(false), 2500);
+    } catch (e) {
+      console.error('download error', e);
+    }
+  };
   const openShare = async () => {
     if (sharing) return;
     saveAllData();
@@ -9019,14 +9056,21 @@ const App = () => {
     className: "font-black text-slate-800 text-xl font-sans uppercase tracking-widest"
   }, pageTitles[currentPage])), wcH("div", {
     className: "wc-head-actions"
-  }, wcH("button", {
+  }, false && wcH("button", {
     className: linkCopied ? "wc-share-trigger done" : "wc-share-trigger",
     onClick: openShare,
     title: "نسخ رابط يفتح النموذج بالبيانات المحفوظة على أي جهاز"
   }, wcH(Icon, {
     name: sharing ? "loader-2" : linkCopied ? "check" : "link-2",
     className: sharing ? "w-4 h-4 wc-spin" : "w-4 h-4"
-  }), wcH("span", null, sharing ? "جاري الإنشاء…" : linkCopied ? "تم نسخ الرابط" : "نسخ رابط البيانات")), /*#__PURE__*/React.createElement("button", {
+  }), wcH("span", null, sharing ? "جاري الإنشاء…" : linkCopied ? "تم نسخ الرابط" : "نسخ رابط البيانات")), wcH("button", {
+    className: fileDone ? "wc-share-trigger done" : "wc-share-trigger",
+    onClick: downloadFile,
+    title: "تنزيل نسخة من الملف تحتوي على البيانات المحفوظة"
+  }, wcH(Icon, {
+    name: fileDone ? "check" : "download",
+    className: "w-4 h-4"
+  }), wcH("span", null, fileDone ? "تم التنزيل" : "تنزيل الملف بالبيانات")), /*#__PURE__*/React.createElement("button", {
     onClick: saveAllData,
     className: `flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm font-sans ${isSaved ? 'bg-emerald-500 text-white' : 'bg-[#7F2438] text-white hover:bg-[#5E1A2A]'}`
   }, /*#__PURE__*/React.createElement(Icon, {
@@ -9306,6 +9350,20 @@ const App = () => {
 };
 const root = ReactDOM.createRoot(document.getElementById('root'));
 (async () => {
+  if (window.WC_EMBED) {
+    let applied = null;
+    try {
+      applied = window.localStorage.getItem('wc_embed_applied');
+    } catch (e) {}
+    if (applied !== window.WC_EMBED_ID) {
+      try {
+        wcApplyShared(await wcUnpack(window.WC_EMBED));
+        window.localStorage.setItem('wc_embed_applied', window.WC_EMBED_ID);
+      } catch (e) {
+        console.error('embedded data error', e);
+      }
+    }
+  }
   let h = window.location.hash || '';
   try {
     h = decodeURIComponent(h);
