@@ -771,6 +771,7 @@ aside.bg-white { border-left: 4px solid var(--wc-maroon) !important; }
 .wc-share-steps small { font-size: 11px; font-weight: 800; color: #334155; line-height: 1.6; }
 .wc-share-open { margin-top: .6rem; display: flex; align-items: center; justify-content: center; gap: .4rem; padding: .7rem; border-radius: 1rem; border: 1px solid #e2c7cd; color: var(--wc-maroon); font-weight: 900; font-size: 14px; text-decoration: none; }
 .wc-share-open:hover { background: #fbf3f5; }
+.wc-share-trigger.done { background: #059669; color: #fff; border-color: #059669; }
 /* ===== App custom styles ===== */
         body { font-family: 'Noto Sans Arabic', sans-serif; background-color: #fdfdfd; margin: 0; overflow: hidden; }
         .main-scroll { height: calc(100vh - 80px); overflow-y: auto; scrollbar-width: thin; scrollbar-color: #7F2438 transparent; }
@@ -4961,6 +4962,9 @@ const wcSharePayload = () => {
     const sc = d[k]?.sales_collected,
       ex = WC_EXCEL_REV_DIST[k];
     if (sc && ex && sc.type === 'custom' && (sc.startIdx || 0) === 0 && sc.duration === ex.length && JSON.stringify(sc.customWeights) === JSON.stringify(ex)) d[k].sales_collected = 'X';
+    const vc = d[k]?.vr_projects,
+      vx = WC_EXCEL_VAR_DIST[k];
+    if (vc && vx && vc.type === 'custom' && (vc.startIdx || 0) === 0 && vc.duration === vx.length && JSON.stringify(vc.customWeights) === JSON.stringify(vx)) d[k].vr_projects = 'X';
   });
   return {
     v: 1,
@@ -4975,6 +4979,12 @@ const wcApplyShared = obj => {
   if (!obj || obj.v !== 1) throw new Error('bad payload');
   const d = obj.d || {};
   WC_CONTRACT_KEYS.forEach(k => {
+    if (d[k] && d[k].vr_projects === 'X') d[k].vr_projects = {
+      startIdx: 0,
+      duration: WC_EXCEL_VAR_DIST[k].length,
+      type: 'custom',
+      customWeights: WC_EXCEL_VAR_DIST[k].slice()
+    };
     if (d[k] && d[k].sales_collected === 'X') d[k].sales_collected = {
       startIdx: 0,
       duration: WC_EXCEL_REV_DIST[k].length,
@@ -7689,6 +7699,7 @@ const App = () => {
   }));
   const [shareInfo, setShareInfo] = useState(null);
   const [sharing, setSharing] = useState(false);
+  const [linkCopied, setLinkCopied] = useState(false);
   const openShare = async () => {
     if (sharing) return;
     saveAllData();
@@ -7723,7 +7734,11 @@ const App = () => {
           console.error('short link error', e);
         }
       }
-      setShareInfo(info);
+      if (info.mode === 'static' && !info.isFile) {
+        await wcCopyRich(info.link, `<a href="${info.link}">${WC_TITLE}</a>`);
+        setLinkCopied(true);
+        setTimeout(() => setLinkCopied(false), 2500);
+      } else setShareInfo(info);
     } catch (e) {
       console.error('share error', e);
     }
@@ -9004,20 +9019,20 @@ const App = () => {
     className: "font-black text-slate-800 text-xl font-sans uppercase tracking-widest"
   }, pageTitles[currentPage])), wcH("div", {
     className: "wc-head-actions"
-  }, false && wcH("button", {
-    className: "wc-share-trigger",
+  }, wcH("button", {
+    className: linkCopied ? "wc-share-trigger done" : "wc-share-trigger",
     onClick: openShare,
-    title: "مشاركة رابط بالبيانات المحفوظة"
+    title: "نسخ رابط يفتح النموذج بالبيانات المحفوظة على أي جهاز"
   }, wcH(Icon, {
-    name: sharing ? "loader-2" : "share-2",
+    name: sharing ? "loader-2" : linkCopied ? "check" : "link-2",
     className: sharing ? "w-4 h-4 wc-spin" : "w-4 h-4"
-  }), wcH("span", null, sharing ? "جاري الإنشاء…" : "مشاركة")), /*#__PURE__*/React.createElement("button", {
+  }), wcH("span", null, sharing ? "جاري الإنشاء…" : linkCopied ? "تم نسخ الرابط" : "نسخ رابط البيانات")), /*#__PURE__*/React.createElement("button", {
     onClick: saveAllData,
     className: `flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm font-sans ${isSaved ? 'bg-emerald-500 text-white' : 'bg-[#7F2438] text-white hover:bg-[#5E1A2A]'}`
   }, /*#__PURE__*/React.createElement(Icon, {
     name: isSaved ? "check-circle" : "save",
     className: "w-4 h-4"
-  }), /*#__PURE__*/React.createElement("span", null, isSaved ? 'تم الحفظ بنجاح' : 'حفظ البيانات')))), false && wcH(ShareModal, {
+  }), /*#__PURE__*/React.createElement("span", null, isSaved ? 'تم الحفظ بنجاح' : 'حفظ البيانات')))), wcH(ShareModal, {
     share: shareInfo,
     onClose: () => setShareInfo(null)
   }), /*#__PURE__*/React.createElement("div", {
