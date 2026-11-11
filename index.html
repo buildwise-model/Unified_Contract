@@ -1897,14 +1897,17 @@ const wcGapAnalysis = (dash, capitalSettings) => {
     early = 0,
     shortMonths = 0,
     surplusMonths = 0;
+  let cumOpCash = 0;
   for (let i = 0; i < n; i++) {
     cumSent += sent[i];
     cumNeed += inj[i];
+    cumOpCash += rev[i] + costs[i];
     if (cumSent > cumNeed + 0.5) {
       surplusMonths++;
       early = Math.max(early, cumSent - cumNeed);
     }
-    if (cumSent < cumNeed - 0.5) shortMonths++;
+    // شهر بتمويل غير كافٍ = صافي التدفق النقدي المتراكم بعد دفعات التمويل سالب (الخلايا الحمراء في جدول التدفقات)
+    if (cumOpCash + cumSent < -0.5) shortMonths++;
   }
   const sim = (sentArr, shift) => {
     let c = 0,
