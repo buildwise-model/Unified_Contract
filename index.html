@@ -1194,6 +1194,8 @@ const formatCashFlow = num => {
   });
 };
 const CF_MONTHS = 120;
+// فروقات التقريب الصغيرة (أقل من 1,000 ريال) لا تُعد عجزاً نقدياً
+const WC_DEF_TOL = 1000;
 const CONTRACT_COST_SUBITEMS = [{
   key: 'wages',
   name: 'أجور ورواتب'
@@ -2038,7 +2040,7 @@ const GapSolution = ({
   setCapitalSettings,
   setCfDistributions
 }) => {
-  if (!(dash.totals.minCum < -0.5)) return null;
+  if (!(dash.totals.minCum < -WC_DEF_TOL)) return null;
   const g = wcGapAnalysis(dash, capitalSettings);
   const n = Math.max(1, dash.months);
   const labels = Array.from({
@@ -4333,7 +4335,7 @@ const FundingCoverage = ({
     c: '#e11d48'
   }];
   const total = segs.reduce((a, x) => a + x.v, 0) || 1;
-  const hasDef = cv.deficit > 0.5 || t.minCum < -0.5;
+  const hasDef = cv.deficit > 0.5 || t.minCum < -WC_DEF_TOL;
   return wcH("div", {
     className: "wc-cover-box"
   }, wcH("div", {
@@ -7256,7 +7258,7 @@ const CashFlowPage = ({
       firstDef = i + 1;
       break;
     }
-    return minCum < -0.5 ? wcH("div", {
+    return minCum < -WC_DEF_TOL ? wcH("div", {
       className: "wc-alert wc-alert-bad"
     }, wcH(Icon, {
       name: "alert-triangle",
@@ -9183,7 +9185,8 @@ const App = () => {
             cc += rev[i] + costs[i] + sent[i];
             if (cc < mn) mn = cc;
           }
-          const D = Math.max(0, Math.min(C - inv - loans, -mn));
+          const D0 = Math.max(0, Math.min(C - inv - loans, -mn));
+          const D = D0 < WC_DEF_TOL ? 0 : D0;
           const collections = Math.max(0, C - inv - loans - D);
           return {
             costs: C,
@@ -9329,7 +9332,7 @@ const App = () => {
     contractName: contractName
   }), /*#__PURE__*/React.createElement("div", {
     className: "mb-6 fade-in"
-  }, dash.totals.minCum < -1 ? /*#__PURE__*/React.createElement("div", {
+  }, dash.totals.minCum < -WC_DEF_TOL ? /*#__PURE__*/React.createElement("div", {
     className: "bg-rose-50 border-2 border-rose-200 rounded-2xl p-6 flex flex-col md:flex-row items-center md:items-start gap-5 shadow-sm animate-pulse transition-all"
   }, /*#__PURE__*/React.createElement("div", {
     className: "bg-rose-100 p-4 rounded-full text-rose-600 shrink-0"
