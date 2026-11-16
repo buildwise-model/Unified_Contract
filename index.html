@@ -873,6 +873,8 @@ aside.bg-white { border-left: 4px solid var(--wc-maroon) !important; }
 .wc-pf-row .wc-altinv-pct > span { flex: none; font-size: 12px; font-weight: 800; color: #64748b; }
 .wc-btn-sm { border: 1px solid #cbd5e1; background: #fff; border-radius: 99px; padding: .4rem .9rem; font-family: inherit; font-weight: 800; font-size: 12.5px; color: #163A5F; cursor: pointer; }
 .wc-btn-sm:hover { background: #F3F6FA; }
+.wc-rd-resv { color: #2E8B8B !important; font-weight: 800; }
+.wc-rd-avail { font-weight: 900; color: #1F6B6B; background: #F2FAF9; }
 </style>
 </head>
 <body>
@@ -2572,15 +2574,37 @@ const wcRoiDynamic = ({
     cumRev = 0;
   const revTotalS = revS ? revS.reduce((a, v) => a + v, 0) : 0;
   const marginS = revTotalS > 0 ? profitPool / revTotalS : 0;
+  let cumFC = 0;
+  const resArr = new Array(CF_MONTHS).fill(0);
+  // النظر للأمام: أقصى هبوط متوقع في الرصيد من هذا الشهر حتى نهاية العقد يُحجز حتى لا يُحدث التوزيع عجزاً لاحقاً
+  const needAhead = (() => {
+    const cum = [],
+      out = new Array(CF_MONTHS).fill(0);
+    let c = 0;
+    for (let i = 0; i < CF_MONTHS; i++) {
+      c += base[i];
+      cum.push(c);
+    }
+    let mn = Infinity;
+    for (let i = CF_MONTHS - 1; i >= 0; i--) {
+      mn = Math.min(mn, cum[i]);
+      out[i] = Math.max(0, cum[i] - mn);
+    }
+    return out;
+  })();
   for (let i = 0; i < CF_MONTHS; i++) {
     cash += base[i];
     cumIn += sent ? sent[i] : 0;
     cumOp += base[i] - (sent ? sent[i] : 0);
     cumRev += revS ? revS[i] : 0;
+    cumFC += base[i] - (revS ? revS[i] : 0);
     // الربح المحقق = الإيرادات المحصلة تراكمياً × هامش ربح العقد (وبدونها: الإيرادات − التكاليف تراكمياً)
     const realized = revS ? Math.max(0, cumRev * marginS) : Math.max(0, cumOp);
     const m = i >= lastIdx ? 0 : margin;
-    const avail = cash - m;
+    // أموال التمويل غير المصروفة بعد (التمويل التراكمي − التكاليف التراكمية) محجوزة لتغطية التكاليف ولا تُوزَّع
+    const reserve = i < lastIdx ? Math.max(revS ? Math.max(0, cumFC) : 0, needAhead[i]) : 0;
+    resArr[i] = reserve;
+    const avail = cash - m - reserve;
     const isDistMonth = i >= lastIdx || (freq === 'end' ? false : (i - startIdx) % freq === freq - 1);
     if (i >= startIdx && isDistMonth && avail > 0.5) {
       const isPre = capRem > 0.5;
@@ -2695,6 +2719,7 @@ const wcRoiDynamic = ({
     unpaidRet: Math.max(0, retRem),
     unpaidWes: Math.max(0, wesRem),
     wesTotal: wes.reduce((a, v) => a + v, 0),
+    resArr,
     lastIdx,
     margin,
     startIdx,
@@ -2709,7 +2734,8 @@ const wcScheduleDist = ({
   prof,
   wesDue,
   cs,
-  fin
+  fin,
+  rev
 }) => {
   const finCum = [];
   let fc = 0;
@@ -2750,10 +2776,28 @@ const wcScheduleDist = ({
     }
   };
   let cumOpS = 0,
-    profPaidS = 0;
+    profPaidS = 0,
+    cumFC = 0;
+  const resArr = new Array(CF_MONTHS).fill(0);
+  const needAhead = (() => {
+    const cum = [],
+      out = new Array(CF_MONTHS).fill(0);
+    let c = 0;
+    for (let i = 0; i < CF_MONTHS; i++) {
+      c += base[i] - prin[i] - prof[i];
+      cum.push(c);
+    }
+    let mn = Infinity;
+    for (let i = CF_MONTHS - 1; i >= 0; i--) {
+      mn = Math.min(mn, cum[i]);
+      out[i] = Math.max(0, cum[i] - mn);
+    }
+    return out;
+  })();
   for (let i = 0; i < CF_MONTHS; i++) {
     const isPre = capPaid < capDue - 0.5;
     cash += base[i] - prin[i] - prof[i];
+    cumFC += base[i] - (rev ? rev[i] : 0);
     cumOpS += base[i];
     profPaidS += prof[i];
     capPaid += prin[i];
@@ -2766,8 +2810,12 @@ const wcScheduleDist = ({
     const m = i >= lastIdx ? 0 : margin;
     const isDistMonth = i >= lastIdx || (freq === 'end' ? false : (i - startIdx) % freq === freq - 1);
     const wesRealRoom = Math.max(0, cumOpS - fundedS(i) - profPaidS) - (wesDue - wesRem);
-    if (i >= startIdx && isDistMonth && cash - m > 0.5 && wesRem > 0.5 && wesRealRoom > 0.5) {
-      const we = Math.min(wesRem, cash - m, wesRealRoom);
+    // لا يُوزَّع من أموال التمويل غير المصروفة بعد
+    const reserve = i < lastIdx ? Math.max(rev ? Math.max(0, cumFC - capPaid) : 0, needAhead[i]) : 0;
+    resArr[i] = reserve;
+    const availW = cash - m - reserve;
+    if (i >= startIdx && isDistMonth && availW > 0.5 && wesRem > 0.5 && wesRealRoom > 0.5) {
+      const we = Math.min(wesRem, availW, wesRealRoom);
       wes[i] = we;
       bucket.wes += we;
       wesRem -= we;
@@ -2792,6 +2840,7 @@ const wcScheduleDist = ({
     unpaidRet: 0,
     unpaidWes: Math.max(0, wesRem),
     wesTotal: wes.reduce((a, v) => a + v, 0),
+    resArr,
     lastIdx,
     margin,
     startIdx,
@@ -2917,7 +2966,7 @@ const RoiDynamicPanel = ({
     decimals: 0
   }), wcH("span", null, "الشهر"))), wcH("p", {
     className: "wc-dyn-hint"
-  }, "هامش الأمان أولوية قصوى: يُعبَّأ من صافي النقد أولاً ويُمنع أي توزيع قبل اكتماله، والنقد المتاح للتوزيع هو ما يتبقى بعده. لا تُوزَّع أرباح إلا من الربح المحقق حتى الشهر، ويُفرج عن الهامش في آخر شهر من العقد.")), fixedFunder ? wcH("div", {
+  }, "هامش الأمان أولوية قصوى: يُعبَّأ من صافي النقد أولاً ويُمنع أي توزيع قبل اكتماله، والنقد المتاح للتوزيع هو ما يتبقى بعده. لا تُوزَّع أرباح إلا من الربح المحقق حتى الشهر، ويُفرج عن الهامش في آخر شهر من العقد. فلوس الممول تُستخدم لتغطية التكاليف فقط ولا تدخل في التوزيع؛ التوزيع يكون من الإيرادات المحصلة فقط، بعد حجز ما يلزم لتغطية أي عجز متوقع في الأشهر القادمة.")), fixedFunder ? wcH("div", {
     className: "wc-alert wc-alert-ok"
   }, wcH(Icon, {
     name: "info",
@@ -3083,10 +3132,13 @@ const RoiDistributionSection = ({
       ret: sum(profS),
       wes: sum(wesS),
       after: cashAfter[e - 1],
-      phase: phase[e - 1]
+      phase: phase[e - 1],
+      resv: dyn && dyn.resArr ? safeNum(dyn.resArr[e - 1]) : 0
     };
     r.total = r.cap + r.ret + r.wes;
     if (size === 1) r.before = cashBefore[s0];else r.before = (s0 > 0 ? cashAfter[s0 - 1] : 0) + sum(base);
+    // المتاح للتوزيع = الرصيد − فلوس الممول غير المصروفة والنقد المحجوز للأشهر القادمة − هامش الأمان
+    r.avail = Math.max(0, r.before - r.resv - (dyn && e - 1 < safeNum(dyn.lastIdx) ? safeNum(dyn.margin) : 0));
     rows.push(r);
   }
   const T = {
@@ -3190,7 +3242,7 @@ const RoiDistributionSection = ({
     }
   }, wcH("table", {
     className: "wc-table wc-table-compact wc-rd-table"
-  }, wcH("thead", null, wcH("tr", null, wcH("th", null, "الفترة"), wcH("th", null, "المرحلة"), wcH("th", null, "النقد المتاح قبل التوزيع"), wcH("th", {
+  }, wcH("thead", null, wcH("tr", null, wcH("th", null, "الفترة"), wcH("th", null, "المرحلة"), wcH("th", null, "الرصيد النقدي قبل التوزيع"), wcH("th", null, "المتاح للتوزيع من الإيرادات"), wcH("th", {
     className: "th-blue"
   }, "رأس المال للممولين"), wcH("th", {
     className: "th-yellow"
@@ -3205,7 +3257,12 @@ const RoiDistributionSection = ({
     className: "wc-rd-sub"
   }, r.sub)), wcH("td", null, wcH("span", {
     className: `wc-ph ${r.phase}`
-  }, r.phase === 'pre' ? 'قبل الاسترداد' : 'بعد الاسترداد')), wcH("td", null, fmt(r.before)), wcH("td", {
+  }, r.phase === 'pre' ? 'قبل الاسترداد' : 'بعد الاسترداد')), wcH("td", null, fmt(r.before), r.resv > 0.5 && wcH("small", {
+    className: "wc-rd-sub wc-rd-resv",
+    title: "فلوس الممول التي لم تُصرف بعد على التكاليف، أو نقد لازم لتغطية عجز متوقع في الأشهر القادمة — محجوز للتكاليف ولا يُوزَّع"
+  }, "منها محجوز للتكاليف ", formatDisplay(r.resv))), wcH("td", {
+    className: "wc-rd-avail"
+  }, fmt(r.avail)), wcH("td", {
     className: "td-blue"
   }, fmt(r.cap)), wcH("td", {
     className: "td-yellow"
@@ -3215,11 +3272,11 @@ const RoiDistributionSection = ({
     className: "td-total"
   }, fmt(r.total)), wcH("td", {
     className: r.after < -0.5 ? 'wc-td-neg' : ''
-  }, formatCashFlow(r.after))))), wcH("tfoot", null, wcH("tr", null, wcH("td", null, "إجمالي الموزّع"), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, formatDisplay(T.cap)), wcH("td", null, formatDisplay(T.ret)), wcH("td", null, formatDisplay(T.wes)), wcH("td", null, formatDisplay(T.cap + T.ret + T.wes)), wcH("td", null, formatCashFlow(cashAfter[n - 1] || 0))), wcH("tr", {
+  }, formatCashFlow(r.after))))), wcH("tfoot", null, wcH("tr", null, wcH("td", null, "إجمالي الموزّع"), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, formatDisplay(T.cap)), wcH("td", null, formatDisplay(T.ret)), wcH("td", null, formatDisplay(T.wes)), wcH("td", null, formatDisplay(T.cap + T.ret + T.wes)), wcH("td", null, formatCashFlow(cashAfter[n - 1] || 0))), wcH("tr", {
     className: "wc-rd-due-row"
-  }, wcH("td", null, "المستحق"), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, formatDisplay(D.cap)), wcH("td", null, formatDisplay(D.ret)), wcH("td", null, D.wes > 0 ? formatDisplay(D.wes) : '–'), wcH("td", null, formatDisplay(D.cap + D.ret + D.wes)), wcH("td", null, "")), wcH("tr", {
+  }, wcH("td", null, "المستحق"), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, formatDisplay(D.cap)), wcH("td", null, formatDisplay(D.ret)), wcH("td", null, D.wes > 0 ? formatDisplay(D.wes) : '–'), wcH("td", null, formatDisplay(D.cap + D.ret + D.wes)), wcH("td", null, "")), wcH("tr", {
     className: "wc-rd-rem-row"
-  }, wcH("td", null, "المتبقي"), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, formatDisplay(Math.max(0, D.cap - T.cap))), wcH("td", null, formatDisplay(Math.max(0, D.ret - T.ret))), wcH("td", null, D.wes > 0 ? formatDisplay(Math.max(0, D.wes - T.wes)) : '–'), wcH("td", null, formatDisplay(Math.max(0, D.cap - T.cap) + Math.max(0, D.ret - T.ret) + Math.max(0, D.wes - T.wes))), wcH("td", null, ""))))));
+  }, wcH("td", null, "المتبقي"), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, ""), wcH("td", null, formatDisplay(Math.max(0, D.cap - T.cap))), wcH("td", null, formatDisplay(Math.max(0, D.ret - T.ret))), wcH("td", null, D.wes > 0 ? formatDisplay(Math.max(0, D.wes - T.wes)) : '–'), wcH("td", null, formatDisplay(Math.max(0, D.cap - T.cap) + Math.max(0, D.ret - T.ret) + Math.max(0, D.wes - T.wes))), wcH("td", null, ""))))));
 };
 const ShareCashPolicy = ({
   capitalSettings,
@@ -4779,6 +4836,7 @@ const wcBuildAltModel = (model, {
       fq = Math.max(1, Math.round(safeNum(S.freq)) || 3),
       ip = Math.min(100, Math.max(0, safeNum(S.invPct))) / 100,
       mg = Math.max(0, safeNum(S.safety));
+    // هامش ربح العقد على التكلفة = صافي الربح ÷ إجمالي التكاليف (كل ريال يدفعه المستثمر يربح بنفس النسبة)
     const totC = -costs.reduce((x, v) => x + v, 0);
     const mOnCost = totC > 0 ? Math.max(0, NP) / totC : 0;
     const P = C * mOnCost,
@@ -4786,13 +4844,19 @@ const wcBuildAltModel = (model, {
     marginOut = mOnCost * 100;
     fin[st] += C;
     // التوزيع من النقد الفائض فقط: أقل رصيد تراكمي متوقع من هذا الشهر حتى نهاية العقد (حتى لا يُحدث التوزيع عجزاً لاحقاً)
-    const fmin = A();
+    const fmin = A(),
+      cumP = A(),
+      resv = A();
     {
-      let c = 0;
+      let c = 0,
+        fc = 0;
       const cum = A();
       for (let i = 0; i < CF_MONTHS; i++) {
         c += rev[i] + costs[i] + fin[i];
+        fc += costs[i] + fin[i];
         cum[i] = c;
+        cumP[i] = c;
+        resv[i] = Math.max(0, fc);
       }
       let mn = Infinity;
       for (let i = CF_MONTHS - 1; i >= 0; i--) {
@@ -4811,7 +4875,8 @@ const wcBuildAltModel = (model, {
       const k = i - st + 1;
       const atEnd = i >= lastAct;
       if (k % fq !== 0 && !atEnd) continue;
-      let av = fmin[i] - paid - (atEnd ? 0 : mg);
+      // لا يُرد رأس المال من أموال المحفظة غير المصروفة بعد: التوزيع من النقد الناتج عن التحصيلات فقط
+      let av = Math.min(fmin[i], cumP[i] - (atEnd ? 0 : resv[i])) - paid - (atEnd ? 0 : mg);
       if (av <= 0.5) continue;
       const pc = Math.min(capOut, av);
       capOut -= pc;
@@ -4854,7 +4919,7 @@ const wcBuildAltModel = (model, {
       })(),
       lastPay: pfRows.length ? pfRows[pfRows.length - 1].m : 0
     };
-    extra.push(['رأس مال المحفظة', `${formatDisplay(shares, 2)} سهم × ${formatDisplay(pfInfo.shareValue)} = ${formatDisplay(C)}`], ['هامش ربح العقد على التكلفة', `${formatDisplay(mOnCost * 100, 2)}%`], ['ربح المحفظة', formatDisplay(P)], ['تقسيم ربح المحفظة', `المستثمرون ${formatDisplay(ip * 100, 1)}% (${formatDisplay(invP)}) • وسام الاتحاد ${formatDisplay(100 - ip * 100, 1)}% (${formatDisplay(P - invP)})`], ['دورية التوزيع', fq === 3 ? 'ربع سنوي' : fq === 1 ? 'شهري' : fq === 6 ? 'نصف سنوي' : fq === 12 ? 'سنوي' : `كل ${fq} أشهر`]);
+    extra.push(['رأس مال المحفظة', `${formatDisplay(shares, 2)} سهم × ${formatDisplay(pfInfo.shareValue)} = ${formatDisplay(C)}`], ['هامش ربح العقد على التكلفة (صافي الربح ÷ التكاليف)', `${formatDisplay(mOnCost * 100, 2)}%`], ['ربح المحفظة', formatDisplay(P)], ['تقسيم ربح المحفظة', `المستثمرون ${formatDisplay(ip * 100, 1)}% (${formatDisplay(invP)}) • وسام الاتحاد ${formatDisplay(100 - ip * 100, 1)}% (${formatDisplay(P - invP)})`], ['دورية التوزيع', fq === 3 ? 'ربع سنوي' : fq === 1 ? 'شهري' : fq === 6 ? 'نصف سنوي' : fq === 12 ? 'سنوي' : `كل ${fq} أشهر`]);
   } else if (model === 'mudaraba') {
     for (let i = 0; i < CF_MONTHS; i++) fin[i] = Math.max(0, -costs[i]);
     const fp = Math.max(0, NP) * safeNum(S.funderPct) / 100;
@@ -5218,7 +5283,8 @@ const wcBuildAltModel = (model, {
         ...policy,
         dynFreq: 1
       },
-      fin
+      fin,
+      rev
     });
   }
   const info = WC_MODELS.find(x => x.k === model);
