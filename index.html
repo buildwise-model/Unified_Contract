@@ -1008,6 +1008,134 @@ aside.bg-white { border-left: 4px solid var(--wc-maroon) !important; }
 .wc-pd-table tr.wc-pd-after td { color: #64748b; }
 .wc-pd-table tr.wc-pd-distrow td { background: #FBF6EA; color: #0E2742; }
 .wc-pd-dist { color: #8A6A1F; }
+
+.wc-inv-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
+.wc-inv-head .wc-pd-card-h { margin-bottom: .6rem; }
+.wc-inv-tools { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.wc-inv-btn { display: inline-flex; align-items: center; gap: .35rem; background: #163A5F; color: #fff; border: 0; border-radius: .8rem; padding: .5rem .9rem; font: inherit; font-size: 12.5px; font-weight: 900; cursor: pointer; }
+.wc-inv-mode { display: inline-flex; align-items: center; gap: .35rem; background: #F0F9F8; color: #1F6B6B; border: 1px solid #CDEBE7; border-radius: .8rem; padding: .45rem .8rem; font-size: 12.5px; font-weight: 900; }
+.wc-inv-btn:hover { filter: brightness(1.08); }
+.wc-inv-sum { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; margin: .4rem 0 .9rem; }
+.wc-inv-sum > div { background: #F8FAFC; border: 1px solid #E6EDF5; border-radius: 1rem; padding: .7rem .9rem; }
+.wc-inv-sum small { display: block; font-size: 11.5px; font-weight: 900; color: #64748b; }
+.wc-inv-sum b { font-size: 1.25rem; font-weight: 900; color: #0E2742; }
+.wc-inv-sum span { display: block; font-size: 11px; font-weight: 800; color: #94a3b8; }
+.wc-inv-sum .f b { color: #1F6B6B; }
+.wc-inv-sum .ok { background: #F0FDF4; border-color: #BBF7D0; } .wc-inv-sum .ok b { color: #15803D; }
+.wc-inv-sum .warn { background: #FFF7ED; border-color: #FED7AA; } .wc-inv-sum .warn b, .wc-inv-sum .warn span { color: #C2410C; }
+.wc-inv-bar { display: flex; height: 30px; border-radius: .8rem; overflow: hidden; background: #F1F5F9; margin-bottom: 1rem; }
+.wc-inv-bar i { display: flex; align-items: center; justify-content: center; color: #fff; font-style: normal; font-size: 11.5px; font-weight: 900; white-space: nowrap; overflow: hidden; }
+.wc-inv-bar i.gap { background: repeating-linear-gradient(45deg, #FED7AA, #FED7AA 6px, #FFEDD5 6px, #FFEDD5 12px); color: #9A3412; }
+.wc-inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .9rem; }
+.wc-inv-card { border: 1px solid #E6EDF5; border-top: 4px solid var(--c); border-radius: 1.2rem; padding: .9rem 1rem; background: linear-gradient(180deg, #fff, #FBFCFE); box-shadow: 0 12px 26px -24px rgba(14,39,66,.6); }
+.wc-inv-card-h { display: flex; align-items: center; gap: .5rem; margin-bottom: .7rem; }
+.wc-inv-av { width: 30px; height: 30px; border-radius: 50%; background: var(--c); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px; flex: none; }
+.wc-inv-name { flex: 1; min-width: 0; border: 1px solid transparent; border-radius: .6rem; padding: .3rem .45rem; font: inherit; font-size: 14px; font-weight: 900; color: #0E2742; background: transparent; }
+.wc-inv-name:hover, .wc-inv-name:focus { border-color: #CBD5E1; background: #fff; outline: none; }
+.wc-inv-del { border: 0; background: #FEF2F2; color: #B91C1C; border-radius: .6rem; padding: .35rem; cursor: pointer; display: inline-flex; }
+.wc-inv-in label { display: block; font-size: 11.5px; font-weight: 900; color: #64748b; margin-bottom: .25rem; }
+.wc-inv-amt { margin-top: .6rem; background: linear-gradient(160deg, #163A5F, #0E2742); border-radius: .9rem; padding: .55rem .8rem; color: #fff; }
+.wc-inv-amt small { display: block; font-size: 11px; font-weight: 900; color: #E9D9B0; }
+.wc-inv-amt b { font-size: 1.2rem; font-weight: 900; color: #E2C276; }
+.wc-inv-amt span { font-size: 11px; font-weight: 800; color: #cbd5e1; margin-right: .25rem; }
+.wc-inv-rows { display: flex; flex-direction: column; gap: .35rem; margin-top: .65rem; }
+.wc-inv-rows > div { display: flex; justify-content: space-between; gap: .5rem; font-size: 12px; font-weight: 800; color: #475569; }
+.wc-inv-rows b { color: #0E2742; font-weight: 900; } .wc-inv-rows b.f { color: #1F6B6B; }
+.wc-inv-rois { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: .65rem; }
+.wc-inv-rois > div { background: #F0F9F8; border-radius: .8rem; padding: .45rem .6rem; }
+.wc-inv-rois > div.yr { background: #FBF6EA; }
+.wc-inv-rois small { display: block; font-size: 10.5px; font-weight: 900; color: #475569; }
+.wc-inv-rois b { font-size: 1.15rem; font-weight: 900; color: #1F6B6B; } .wc-inv-rois .yr b { color: #8A6A1F; }
+.wc-inv-note { margin-top: .9rem; }
+@media (max-width: 900px) { .wc-inv-sum { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.wc-db-inv-tbl td .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-left: .4rem; vertical-align: middle; }
+
+/* ===== هيكلة رأس المال — التصميم المتدرج ===== */
+.wc-cs { display: flex; flex-direction: column; gap: 1.1rem; }
+.wc-cs-hero { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.15fr 1fr; gap: 1.4rem; align-items: center; padding: 1.8rem 1.9rem; border-radius: 1.8rem; color: #fff; background: radial-gradient(circle at 8% 0%, rgba(201,162,74,.28), transparent 38%), linear-gradient(135deg, #163A5F 0%, #0E2742 55%, #081A2E 100%); box-shadow: 0 26px 50px -34px rgba(8,26,46,.9); }
+.wc-cs-hero::after { content: ''; position: absolute; left: -60px; bottom: -80px; width: 260px; height: 260px; border-radius: 50%; border: 36px solid rgba(46,139,139,.13); }
+.wc-cs-kicker { font-size: 12px; font-weight: 900; color: #E2C276; letter-spacing: .02em; }
+.wc-cs-hero h2 { font-size: 1.9rem; font-weight: 900; margin: .35rem 0 .55rem; line-height: 1.35; }
+.wc-cs-hero p { font-size: 13.5px; font-weight: 700; color: #C7D4E2; line-height: 1.9; max-width: 560px; }
+.wc-cs-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
+.wc-cs-tags > span { display: inline-flex; align-items: center; gap: .35rem; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); border-radius: 999px; padding: .32rem .75rem; font-size: 12px; font-weight: 900; color: #E8EEF5; }
+.wc-cs-figs { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.wc-cs-fig { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13); border-radius: 1.1rem; padding: .85rem 1rem; backdrop-filter: blur(4px); }
+.wc-cs-fig small { display: block; font-size: 11.5px; font-weight: 900; color: #B8C7D8; }
+.wc-cs-fig b { display: block; font-size: 1.45rem; font-weight: 900; color: #fff; margin: .15rem 0; }
+.wc-cs-fig span { font-size: 11px; font-weight: 800; color: #94A9C0; }
+.wc-cs-fig.f { background: rgba(46,139,139,.22); border-color: rgba(125,211,199,.35); } .wc-cs-fig.f b { color: #9FE3D8; }
+.wc-cs-fig.g { background: rgba(201,162,74,.2); border-color: rgba(226,194,118,.45); } .wc-cs-fig.g b { color: #F0D592; }
+.wc-cs-nav { position: sticky; top: 0; z-index: 20; display: flex; gap: .35rem; overflow-x: auto; padding: .5rem; background: rgba(255,255,255,.92); backdrop-filter: blur(8px); border: 1px solid #E6EDF5; border-radius: 1.2rem; box-shadow: 0 12px 26px -24px rgba(14,39,66,.6); }
+.wc-cs-nav button { flex: 1 0 auto; display: inline-flex; align-items: center; justify-content: center; gap: .45rem; border: 0; background: transparent; border-radius: .85rem; padding: .5rem .7rem; font: inherit; font-size: 12.5px; font-weight: 900; color: #475569; cursor: pointer; white-space: nowrap; transition: all .2s; }
+.wc-cs-nav button b { width: 24px; height: 24px; border-radius: 50%; background: #EEF3F9; color: #163A5F; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+.wc-cs-nav button:hover { background: #F1F5F9; color: #0E2742; } .wc-cs-nav button:hover b { background: #163A5F; color: #E2C276; }
+.wc-cs-step { position: relative; scroll-margin-top: 80px; background: #fff; border: 1px solid #E6EDF5; border-radius: 1.6rem; padding: 1.3rem 1.4rem 1.4rem; box-shadow: 0 16px 36px -30px rgba(14,39,66,.6); }
+.wc-cs-step::before { content: ''; position: absolute; right: 2.55rem; top: -1.15rem; height: 1.15rem; width: 2px; background: linear-gradient(#E6EDF5, #C9A24A); }
+.wc-cs-nav + .wc-cs-step::before { display: none; }
+.wc-cs-step-h { display: flex; align-items: center; gap: .85rem; padding-bottom: 1rem; margin-bottom: 1.1rem; border-bottom: 1px dashed #E2E8F0; }
+.wc-cs-num { flex: none; width: 46px; height: 46px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; font-size: 1.35rem; font-weight: 900; color: #E2C276; background: linear-gradient(150deg, #163A5F, #0E2742); box-shadow: 0 10px 20px -12px rgba(14,39,66,.9); }
+.wc-cs-step-t { flex: 1; min-width: 0; }
+.wc-cs-step-t h3 { font-size: 1.15rem; font-weight: 900; color: #0E2742; }
+.wc-cs-step-t p { font-size: 12.5px; font-weight: 700; color: #64748b; margin-top: .2rem; line-height: 1.8; }
+.wc-cs-step-ico { flex: none; width: 38px; height: 38px; border-radius: 12px; background: #F4F7FB; color: #2E8B8B; display: inline-flex; align-items: center; justify-content: center; }
+.wc-cs-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 1.1rem; align-items: stretch; }
+.wc-cs-row-b { grid-template-columns: minmax(0, 1fr) minmax(0, 1.35fr); margin-top: 1rem; }
+.wc-cs-row-b .wc-table-wrap { overflow-x: auto; }
+.wc-cs-row-b .wc-pd-table th, .wc-cs-row-b .wc-pd-table td { white-space: nowrap; padding-left: .55rem; padding-right: .55rem; }
+.wc-cs-panel { background: #F8FAFC; border: 1px solid #EDF2F7; border-radius: 1.2rem; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .5rem; min-width: 0; }
+.wc-cs-viz { background: #fff; border: 1px solid #EDF2F7; border-radius: 1.2rem; padding: 1rem 1.1rem; min-width: 0; }
+.wc-cs-viz-h { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; margin-bottom: .7rem; }
+.wc-cs-viz-h b { font-size: 13.5px; font-weight: 900; color: #0E2742; }
+.wc-cs-viz-h span { font-size: 11.5px; font-weight: 800; color: #94a3b8; }
+.wc-cs-lbl { font-size: 12px; font-weight: 900; color: #475569; margin-top: .3rem; }
+.wc-cs-periods { display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+.wc-cs-periods button { display: flex; align-items: baseline; justify-content: center; gap: .3rem; border: 1.5px solid #E2E8F0; background: #fff; border-radius: 1rem; padding: .55rem; font: inherit; cursor: pointer; transition: all .2s; }
+.wc-cs-periods b { font-size: 1.5rem; font-weight: 900; color: #163A5F; } .wc-cs-periods span { font-size: 12px; font-weight: 900; color: #64748b; }
+.wc-cs-periods button.active { background: linear-gradient(150deg, #163A5F, #0E2742); border-color: #C9A24A; box-shadow: 0 12px 22px -14px rgba(14,39,66,.9); }
+.wc-cs-periods button.active b { color: #E2C276; } .wc-cs-periods button.active span { color: #cbd5e1; }
+.wc-cs-bars { display: flex; align-items: stretch; gap: .35rem; height: 190px; }
+.wc-cs-bar { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: .25rem; }
+.wc-cs-bar em { font-style: normal; font-size: 10.5px; font-weight: 900; color: #475569; }
+.wc-cs-bar-t { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; background: #F4F7FB; border-radius: .6rem; }
+.wc-cs-bar-t i { display: block; width: 72%; max-width: 38px; border-radius: .55rem .55rem .3rem .3rem; transition: height .4s; }
+.wc-cs-bars.p i { background: linear-gradient(180deg, #2E8B8B, #1F6B6B); }
+.wc-cs-bars.f i { background: linear-gradient(180deg, #2B5583, #163A5F); }
+.wc-cs-bar small { font-size: 10.5px; font-weight: 800; color: #94a3b8; }
+.wc-cs-eq { display: flex; align-items: stretch; gap: .4rem; flex-wrap: wrap; }
+.wc-cs-eqv { flex: 1 1 0; min-width: 110px; background: #fff; border: 1px solid #E2E8F0; border-radius: .95rem; padding: .6rem .75rem; }
+.wc-cs-eqv small { display: block; font-size: 11px; font-weight: 900; color: #64748b; line-height: 1.5; }
+.wc-cs-eqv b { display: block; font-size: 1.1rem; font-weight: 900; color: #0E2742; margin-top: .15rem; }
+.wc-cs-eqv.hl { background: linear-gradient(150deg, #163A5F, #0E2742); border-color: #0E2742; } .wc-cs-eqv.hl small { color: #E9D9B0; } .wc-cs-eqv.hl b { color: #E2C276; }
+.wc-cs-op { align-self: center; font-size: 1.4rem; font-weight: 900; color: #C9A24A; }
+.wc-cs-explain { display: flex; gap: .5rem; align-items: flex-start; background: #F0F9F8; border: 1px solid #CDEBE7; border-radius: .9rem; padding: .65rem .8rem; font-size: 12.5px; font-weight: 700; color: #1F4F4F; line-height: 1.9; margin-top: .4rem; }
+.wc-cs-explain > span:first-child { color: #2E8B8B; margin-top: .25rem; }
+.wc-cs-split { display: flex; height: 40px; border-radius: .9rem; overflow: hidden; background: #F1F5F9; }
+.wc-cs-split i { display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 12.5px; font-weight: 900; color: #fff; white-space: nowrap; }
+.wc-cs-split i.f { background: linear-gradient(90deg, #1F6B6B, #2E8B8B); } .wc-cs-split i.w { background: linear-gradient(90deg, #B08A35, #C9A24A); }
+.wc-cs-duo { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; margin-top: .9rem; }
+.wc-cs-duo > div { border-radius: 1rem; padding: .8rem .9rem; border: 1px solid #EDF2F7; }
+.wc-cs-duo > div.f { background: #F0F9F8; border-color: #CDEBE7; } .wc-cs-duo > div.w { background: #FBF6EA; border-color: #EFE0BA; }
+.wc-cs-duo small { display: block; font-size: 11.5px; font-weight: 900; color: #475569; }
+.wc-cs-duo b { display: block; font-size: 1.3rem; font-weight: 900; margin: .15rem 0; } .wc-cs-duo .f b { color: #1F6B6B; } .wc-cs-duo .w b { color: #8A6A1F; }
+.wc-cs-duo span { font-size: 11px; font-weight: 800; color: #94a3b8; }
+.wc-cs-two { display: grid; grid-template-columns: 1fr; gap: .2rem; }
+.wc-cs-inline { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+.wc-cs-mini { border: 1px solid #E2E8F0; background: #fff; border-radius: .7rem; padding: .3rem .7rem; font: inherit; font-size: 11.5px; font-weight: 900; color: #163A5F; cursor: pointer; }
+.wc-cs-mini:hover { background: #F1F5F9; }
+.wc-cs-kpis { margin-bottom: 1rem; grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+@media (max-width: 900px) { .wc-cs-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+.wc-cs-compo { background: #F8FAFC; border: 1px solid #EDF2F7; border-radius: 1.2rem; padding: 1rem 1.1rem; }
+.wc-cs-trail { counter-reset: t; display: flex; flex-direction: column; gap: .45rem; }
+.wc-cs-trail li { counter-increment: t; position: relative; background: #fff; border: 1px solid #EDF2F7; border-radius: .85rem; padding: .55rem .8rem .55rem .8rem; padding-right: 2.5rem; display: flex; flex-direction: column; gap: .15rem; }
+.wc-cs-trail li::before { content: counter(t); position: absolute; right: .7rem; top: .6rem; width: 22px; height: 22px; border-radius: 50%; background: #163A5F; color: #E2C276; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; }
+.wc-cs-trail span { font-size: 12px; font-weight: 800; color: #475569; line-height: 1.7; }
+.wc-cs-trail b { font-size: 13px; font-weight: 900; color: #0E2742; direction: ltr; text-align: right; }
+.wc-cs-step .wc-inv { border: 0; box-shadow: none; padding: 0; background: transparent; }
+.wc-cs-step .wc-inv-head { justify-content: flex-end; }
+.wc-cs-step .wc-inv-head > .wc-pd-card-h { display: none; }
+@media (max-width: 1100px) { .wc-cs-hero, .wc-cs-row, .wc-cs-row-b { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .wc-cs-figs, .wc-cs-duo, .wc-cs-two { grid-template-columns: 1fr; } .wc-cs-hero { padding: 1.3rem; } .wc-cs-hero h2 { font-size: 1.45rem; } }
 .wc-pd-shares { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .5rem; margin: .4rem 0 .6rem; }
 .wc-pd-shares > div { background: #F1F5F9; border-radius: .8rem; padding: .5rem .6rem; text-align: center; border-top: 3px solid #163A5F; }
 .wc-pd-shares > div.f { border-top-color: #2E8B8B; }
@@ -1133,7 +1261,7 @@ aside.bg-white { border-left: 4px solid var(--wc-maroon) !important; }
 .wc-db-hero-figs > .hl:first-child { grid-column: 1 / -1; }
 .wc-db-hero-figs .gold { background: rgba(201,162,74,.2); border-color: rgba(201,162,74,.6); } .wc-db-hero-figs .gold b { color: #E2C276; }
 .wc-db-hero-figs .neg { background: rgba(224,122,95,.18); border-color: rgba(224,122,95,.6); } .wc-db-hero-figs .neg b { color: #F4A58F; }
-.wc-db-rings { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; }
+.wc-db-rings { display: grid; grid-template-columns: repeat(2, 1fr); gap: .6rem; }
 .wc-db-ring { text-align: center; background: rgba(255,255,255,.05); border-radius: 1.1rem; padding: .7rem .4rem; }
 .wc-db-ring svg { width: 100%; max-width: 104px; }
 .wc-db-ring b { display: block; font-size: 12px; font-weight: 900; margin-top: .25rem; }
@@ -6853,6 +6981,74 @@ const CapitalHero = ({
 // ===== هيكلة رأس المال: الإنتاجية ونوع التمويل =====
 // فترات الإنتاجية المتاحة
 const WC_PERIODS = [6, 12];
+// محفظة المستثمرين الافتراضية (نسبة كل مستثمر من التمويل المطلوب)
+const WC_INV_DEF = [{
+  name: 'المستثمر الأول',
+  pct: 40
+}, {
+  name: 'المستثمر الثاني',
+  pct: 35
+}, {
+  name: 'المستثمر الثالث',
+  pct: 25
+}];
+const WC_INV_COLORS = ['#163A5F', '#2E8B8B', '#C9A24A', '#5B7FA6', '#7DD3C7', '#8A6A1F', '#9FB3C8', '#3FA7A7', '#E2C276', '#0E2742'];
+// حساب حصة وعائد كل مستثمر من دفعات التمويل الشهرية
+const wcInvCalc = (P, trAll, rr) => {
+  const list = (Array.isArray(P.investors) && P.investors.length ? P.investors : WC_INV_DEF).map((v, i) => ({
+    name: String(v && v.name || `المستثمر ${i + 1}`),
+    pct: Math.max(0, safeNum(v && v.pct))
+  }));
+  const mode = 'pro'; // بالتناسب في كل شهر فقط
+  const pSum = list.reduce((a, v) => a + v.pct, 0);
+  const fTot = trAll.reduce((a, t) => a + t.amt, 0);
+  let acc = 0;
+  const bounds = list.map(v => {
+    const a = acc;
+    acc += v.pct / Math.max(pSum, 100);
+    return [a, acc];
+  });
+  return {
+    mode,
+    pSum,
+    list: list.map((v, i) => {
+      const sh = pSum > 0 ? v.pct / Math.max(pSum, 100) : 0;
+      let tc = 0;
+      const pieces = trAll.map(t => {
+        const ta = fTot > 0 ? tc / fTot : 0;
+        tc += t.amt;
+        const tb = fTot > 0 ? tc / fTot : 0;
+        let amt;
+        if (mode === 'pro') amt = t.amt * sh;else {
+          const [a, b] = bounds[i];
+          const lo = Math.max(a, ta),
+            hi = Math.min(b, tb);
+          amt = hi > lo && tb > ta ? t.amt * (hi - lo) / (tb - ta) : 0;
+        }
+        return {
+          ...t,
+          part: amt
+        };
+      }).filter(x => x.part > 0.5);
+      const amount = pieces.reduce((a, x) => a + x.part, 0);
+      const profit = amount * rr;
+      return {
+        i,
+        name: v.name,
+        pct: v.pct,
+        color: WC_INV_COLORS[i % WC_INV_COLORS.length],
+        amount,
+        profit,
+        back: amount + profit,
+        roi: amount > 0 ? profit / amount * 100 : 0,
+        annual: pieces.length ? pieces.reduce((a, x) => a + x.annual, 0) / pieces.length : 0,
+        from: pieces.length ? pieces[0].m : 0,
+        to: pieces.length ? pieces[pieces.length - 1].m : 0,
+        rec: pieces.length ? Math.max(...pieces.map(x => x.rec)) : 0
+      };
+    })
+  };
+};
 const WC_PROD_COLL18 = [0, 3, 3.5, 4.5, 4.5, 5.5, 6, 5.5, 7, 7.5, 9.5, 10, 8.5, 6, 5.5, 5, 4.5, 4];
 const WC_PROD_DEF = {
   months: 6,
@@ -7004,7 +7200,7 @@ const wcProdCalc = (P, roc) => {
   const capCum = [];
   rows.reduce((a, r) => (capCum.push(a + r.dCap * (extFund + teamFund > 0 ? extFund / (extFund + teamFund) : 0)), capCum[capCum.length - 1]), 0);
   let fc = 0;
-  const tranches = extS.map((v, i) => {
+  const trAll = extS.map((v, i) => {
     fc += v;
     const thr = fSum > 0 ? fc / fSum * extFund : 0;
     const k = capCum.findIndex(c => c >= thr - 0.5);
@@ -7018,7 +7214,9 @@ const wcProdCalc = (P, roc) => {
       held,
       annual: rr * 100 * 12 / held
     };
-  }).filter(t => t.amt > 0.5);
+  });
+  const tranches = trAll.filter(t => t.amt > 0.5);
+  const inv = wcInvCalc(P, tranches, rr);
   const roiAnnual = tranches.length ? tranches.reduce((a, t) => a + t.annual, 0) / tranches.length : roiAnnualSimple;
   const sum = k => rows.reduce((a, r) => a + r[k], 0);
   return {
@@ -7027,6 +7225,7 @@ const wcProdCalc = (P, roc) => {
     total,
     distFreq,
     distMargin,
+    inv,
     shC,
     shF,
     shW,
@@ -7066,6 +7265,130 @@ const wcSplitEven = (tot, n) => {
   }, () => Math.round(tot / n));
   a[n - 1] = Math.round(tot - a.slice(0, n - 1).reduce((x, v) => x + v, 0));
   return a;
+};
+// ===== محفظة المستثمرين (صفحة هيكلة رأس المال) =====
+const WcInvPortfolio = ({
+  R,
+  set
+}) => {
+  const I = R.inv;
+  const fd = v => formatDisplay(v);
+  const pc = (v, d = 1) => wcH("bdi", null, formatDisplay(v, d), "%");
+  const cur = () => I.list.map(v => ({
+    name: v.name,
+    pct: v.pct
+  }));
+  const upd = (i, patch) => set(() => ({
+    investors: cur().map((v, k) => k === i ? {
+      ...v,
+      ...patch
+    } : v)
+  }));
+  const add = () => set(() => ({
+    investors: [...cur(), {
+      name: `المستثمر ${I.list.length + 1}`,
+      pct: Math.max(0, 100 - I.pSum)
+    }]
+  }));
+  const del = i => set(() => ({
+    investors: cur().filter((_, k) => k !== i)
+  }));
+  const tot = k => I.list.reduce((a, v) => a + v[k], 0);
+  const ok = Math.abs(I.pSum - 100) < 0.05;
+  const gap = R.extFSum - tot('amount');
+  return wcH("div", {
+    className: "wc-pd-card wc-inv"
+  }, wcH("div", {
+    className: "wc-inv-head"
+  }, wcH("div", {
+    className: "wc-pd-card-h"
+  }, wcH("span", {
+    className: "wc-pd-ico"
+  }, wcH(Icon, {
+    name: "users",
+    className: "w-5 h-5"
+  })), wcH("div", null, wcH("b", null, "محفظة المستثمرين"), wcH("small", null, "توزيع التمويل المطلوب لإنتاجية ", R.n, " شهر على المستثمرين، وصافي ربح وعائد كل مستثمر"))), wcH("div", {
+    className: "wc-inv-tools"
+  }, wcH("span", {
+    className: "wc-inv-mode"
+  }, wcH(Icon, {
+    name: "check",
+    className: "w-4 h-4"
+  }), "بالتناسب في كل شهر"), I.list.length < 10 && wcH("button", {
+    className: "wc-inv-btn",
+    onClick: add
+  }, wcH(Icon, {
+    name: "plus",
+    className: "w-4 h-4"
+  }), "إضافة مستثمر"))), wcH("div", {
+    className: "wc-inv-sum"
+  }, wcH("div", null, wcH("small", null, "التمويل المطلوب"), wcH("b", null, fd(R.extFSum)), wcH("span", null, "ريال")), wcH("div", null, wcH("small", null, "عدد المستثمرين"), wcH("b", null, I.list.length), wcH("span", null, "مستثمر")), wcH("div", {
+    className: "f"
+  }, wcH("small", null, "صافي ربح المستثمرين"), wcH("b", null, fd(tot('profit'))), wcH("span", null, "ريال")), wcH("div", {
+    className: ok ? 'ok' : 'warn'
+  }, wcH("small", null, "مجموع الحصص"), wcH("b", null, pc(I.pSum, 1)), wcH("span", null, ok ? 'التمويل مغطى بالكامل' : I.pSum < 100 ? `غير مغطى ${fd(gap)} ريال` : 'أكثر من 100% — تُخفَّض بالتناسب'))), wcH("div", {
+    className: "wc-inv-bar"
+  }, I.list.map(v => wcH("i", {
+    key: v.i,
+    style: {
+      width: `${R.extFSum > 0 ? v.amount / R.extFSum * 100 : 0}%`,
+      background: v.color
+    },
+    title: v.name
+  }, R.extFSum > 0 && v.amount / R.extFSum > .07 ? `${v.name} ${formatDisplay(v.amount / R.extFSum * 100, 0)}%` : '')), I.pSum < 100 && wcH("i", {
+    className: "gap",
+    style: {
+      width: `${100 - I.pSum}%`
+    }
+  }, "غير مغطى")), wcH("div", {
+    className: "wc-inv-grid"
+  }, I.list.map(v => wcH("div", {
+    key: v.i,
+    className: "wc-inv-card",
+    style: {
+      '--c': v.color
+    }
+  }, wcH("div", {
+    className: "wc-inv-card-h"
+  }, wcH("span", {
+    className: "wc-inv-av"
+  }, v.i + 1), wcH("input", {
+    className: "wc-inv-name",
+    value: v.name,
+    onChange: e => upd(v.i, {
+      name: e.target.value
+    })
+  }), I.list.length > 1 && wcH("button", {
+    className: "wc-inv-del",
+    title: "حذف المستثمر",
+    onClick: () => del(v.i)
+  }, wcH(Icon, {
+    name: "trash-2",
+    className: "w-4 h-4"
+  }))), wcH("div", {
+    className: "wc-inv-in"
+  }, wcH("label", null, "الحصة من التمويل"), wcH("div", {
+    className: "wc-pd-money wc-pd-pctin"
+  }, wcH(SmartNumericInput, {
+    value: v.pct,
+    onChange: x => upd(v.i, {
+      pct: Math.max(0, Math.min(100, safeNum(x)))
+    }),
+    className: "wc-in-input",
+    decimals: 2
+  }), wcH("span", null, "%"))), wcH("div", {
+    className: "wc-inv-amt"
+  }, wcH("small", null, "مبلغ المساهمة"), wcH("b", null, fd(v.amount)), wcH("span", null, "ريال")), wcH("div", {
+    className: "wc-inv-rows"
+  }, wcH("div", null, wcH("span", null, "صافي الربح"), wcH("b", {
+    className: "f"
+  }, fd(v.profit))), wcH("div", null, wcH("span", null, "إجمالي المسترد (رأس المال + الربح)"), wcH("b", null, fd(v.back))), wcH("div", null, wcH("span", null, "أشهر التمويل"), wcH("b", null, v.from ? v.from === v.to ? `الشهر ${v.from}` : `من ${v.from} إلى ${v.to}` : '—')), wcH("div", null, wcH("span", null, "شهر الاسترداد الكامل"), wcH("b", null, v.rec || '—'))), wcH("div", {
+    className: "wc-inv-rois"
+  }, wcH("div", null, wcH("small", null, "العائد على الاستثمار"), wcH("b", null, pc(v.roi, 1))), wcH("div", {
+    className: "yr"
+  }, wcH("small", null, "العائد السنوي"), wcH("b", null, pc(v.annual, 1))))))), wcH("div", {
+    className: "wc-pd-note wc-inv-note"
+  }, "بالتناسب في كل شهر: كل مستثمر يدخل بحصته في تمويل كل شهر، فالعائد واحد للجميع والربح يختلف حسب المبلغ.", " صافي ربح كل مستثمر = مبلغ مساهمته × (صافي ربح التمويل الخارجي ÷ مبلغ التمويل)."));
 };
 const ProdStructure = ({
   contractName,
@@ -7202,251 +7525,346 @@ const ProdStructure = ({
     return [r.m, blank(fundCell('teamManual', r.teamF, i)), blank(fd(r.teamP)), r.bill > 0.5 ? fd(r.bill) : i < R.m ? '0' : '', pctCell];
   };
   const totCells = R.type === 'mix' ? ['الإجمالي', fd(R.extFSum), fd(R.extProd), fd(R.teamFSum), fd(R.teamProd), fd(R.rows.reduce((a, r) => a + r.bill, 0)), pc(R.pSum, 2)] : R.type === 'ext' ? ['الإجمالي', fd(R.extFSum), fd(R.prodSum), fd(R.rows.reduce((a, r) => a + r.bill, 0)), pc(R.pSum, 2), '', fd(R.rows.reduce((a, r) => a + r.dist, 0)), fd(R.rows.reduce((a, r) => a + r.dCap, 0)), fd(R.rows.reduce((a, r) => a + r.dFun, 0)), fd(R.rows.reduce((a, r) => a + r.dWes, 0)), ''] : ['الإجمالي', fd(R.teamFSum), fd(R.teamProd), fd(R.rows.reduce((a, r) => a + r.bill, 0)), pc(R.pSum, 2)];
-  return wcH("div", {
-    className: "wc-pd fade-in"
-  }, wcH("div", {
-    className: "wc-pd-hero"
-  }, wcH("div", null, wcH("span", {
-    className: "wc-pd-kicker"
-  }, "هيكلة رأس المال — ", contractName), wcH("h2", null, "الإنتاجية ونوع التمويل"), wcH("p", null, "اختر فترة الإنتاجية ونوع التمويل وأدخل الإنتاجية المتوقعة؛ يُحسب التمويل المطلوب وتقسيم الأرباح والعائد تلقائياً.")), wcH("div", {
-    className: "wc-pd-roc"
-  }, wcH("small", null, "العائد على التكلفة"), wcH("b", null, pc(roc, 2)), wcH("span", null, "من صفحة الإيرادات والتكاليف والأرباح — إنتاجية الوسام"))), roc < 0 && wcH("div", {
+  // ===== التصميم المتدرج: من الإنتاجية إلى عائد المستثمر =====
+  const h = wcH;
+  const ar = k => '١٢٣٤٥٦٧'[k - 1];
+  const go = k => {
+    const el = document.getElementById(`wc-cs-s${k}`);
+    if (el) el.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+  const fig = (l, v, sub, c = '') => h("div", {
+    className: `wc-cs-fig ${c}`
+  }, h("small", null, l), h("b", null, v), h("span", null, sub));
+  const eqv = (l, v, c = '') => h("div", {
+    className: `wc-cs-eqv ${c}`
+  }, h("small", null, l), h("b", null, v));
+  const op = t => h("span", {
+    className: "wc-cs-op"
+  }, t);
+  const lbl = t => h("label", {
+    className: "wc-cs-lbl"
+  }, t);
+  const bars = (vals, cls) => {
+    const mx = Math.max(1, ...vals);
+    return h("div", {
+      className: `wc-cs-bars ${cls}`
+    }, vals.map((v, i) => h("div", {
+      key: i,
+      className: "wc-cs-bar"
+    }, h("em", null, (v / 1e6).toFixed(2)), h("div", {
+      className: "wc-cs-bar-t"
+    }, h("i", {
+      style: {
+        height: `${Math.max(2, v / mx * 100)}%`
+      }
+    })), h("small", null, "ش", i + 1))));
+  };
+  const step = (k, icon, title, lead, body) => h("section", {
+    id: `wc-cs-s${k}`,
+    className: "wc-cs-step"
+  }, h("div", {
+    className: "wc-cs-step-h"
+  }, h("span", {
+    className: "wc-cs-num"
+  }, ar(k)), h("div", {
+    className: "wc-cs-step-t"
+  }, h("h3", null, title), h("p", null, lead)), h("span", {
+    className: "wc-cs-step-ico"
+  }, h(Icon, {
+    name: icon,
+    className: "w-5 h-5"
+  }))), h("div", {
+    className: "wc-cs-step-b"
+  }, body));
+  const STEPS = [[1, 'الإنتاجية'], [2, 'التمويل المطلوب'], [3, 'تقسيم الربح'], [4, 'المستثمرون'], [5, 'التحصيل والتوزيع'], [6, 'النتيجة والعائد'], [7, 'الجدول الشهري']];
+  const prodVals = R.rows.slice(0, R.n).map(r => r.extP);
+  const fundVals = R.rows.slice(0, R.n).map(r => r.extF);
+  const distTot = R.rows.reduce((a, r) => a + r.dist, 0);
+  const firstDist = R.rows.find(r => r.dist > 0.5);
+  return h("div", {
+    className: "wc-pd wc-cs fade-in"
+  }, h("div", {
+    className: "wc-cs-hero"
+  }, h("div", {
+    className: "wc-cs-hero-main"
+  }, h("span", {
+    className: "wc-cs-kicker"
+  }, "هيكلة رأس المال — ", contractName), h("h2", null, "من الإنتاجية إلى عائد المستثمر"), h("p", null, "سبع خطوات متدرجة: نحدد الإنتاجية، ثم التمويل المطلوب لتغطية تكاليفها، ثم تقسيم صافي الربح، وتوزيع التمويل على المستثمرين، وأخيراً التحصيل والتوزيعات والعائد."), h("div", {
+    className: "wc-cs-tags"
+  }, h("span", null, h(Icon, {
+    name: "landmark",
+    className: "w-4 h-4"
+  }), "تمويل خارجي"), h("span", null, h(Icon, {
+    name: "calendar-range",
+    className: "w-4 h-4"
+  }), "إنتاجية ", wcMonthsTxt(R.n)), h("span", null, h(Icon, {
+    name: "percent",
+    className: "w-4 h-4"
+  }), "العائد على التكلفة ", pc(roc, 2)))), h("div", {
+    className: "wc-cs-figs"
+  }, fig('الإنتاجية المتوقعة', fd(R.total), 'ريال'), fig('التمويل المطلوب', fd(R.extFund), 'ريال'), fig('صافي ربح الممول', fd(R.funderNet), 'ريال', 'f'), fig('معدل العائد السنوي', pc(R.roiAnnual, 1), h(React.Fragment, null, "العائد على الاستثمار ", pc(R.roi, 1)), 'g'))), roc < 0 && h("div", {
     className: "wc-pd-warn wc-pd-warn-big"
-  }, "العائد على التكلفة سالب (", pc(roc, 2), "): تكاليف فترة الإنتاجية أعلى من إنتاجية الوسام في صفحة الإيرادات والتكاليف والأرباح. يُحتسب التمويل المطلوب هنا بعائد 0% إلى أن تُعدَّل التكاليف أو إنتاجية الوسام."), wcH("div", {
-    className: "wc-pd-grid2"
-  }, card('calendar-range', 'الإنتاجية', 'فترة الإنتاجية المتوقعة', wcH("div", {
-    className: "wc-pd-opts wc-pd-opts-3"
-  }, WC_PERIODS.map(k => wcH("button", {
+  }, "العائد على التكلفة سالب (", pc(roc, 2), "): تكاليف فترة الإنتاجية أعلى من إنتاجية الوسام في صفحة الإيرادات والتكاليف والأرباح. يُحتسب التمويل المطلوب هنا بعائد 0% إلى أن تُعدَّل التكاليف أو إنتاجية الوسام."), h("nav", {
+    className: "wc-cs-nav"
+  }, STEPS.map(([k, l]) => h("button", {
     key: k,
-    className: R.n === k ? 'wc-pd-opt active' : 'wc-pd-opt',
+    onClick: () => go(k)
+  }, h("b", null, ar(k)), h("span", null, l)))), step(1, 'target', 'الإنتاجية المتوقعة', 'نختار فترة الإنتاجية ونحدد قيمتها وكيف تتوزع على الأشهر — هي نقطة البداية لكل الحسابات.', h("div", {
+    className: "wc-cs-row"
+  }, h("div", {
+    className: "wc-cs-panel"
+  }, lbl("فترة الإنتاجية"), h("div", {
+    className: "wc-cs-periods"
+  }, WC_PERIODS.map(k => h("button", {
+    key: k,
+    className: R.n === k ? 'active' : '',
     onClick: () => setMonths(k)
-  }, wcH("b", null, k), wcH("span", null, "شهر"), wcH("small", null, "إنتاجية ", k, " شهر"))))), card('layers', 'نوع التمويل', 'مصدر تنفيذ وتمويل الإنتاجية', wcH("div", {
-    className: "wc-pd-opts wc-pd-opts-1"
-  }, WC_PROD_TYPES.map(t => wcH("button", {
-    key: t.k,
-    className: R.type === t.k ? 'wc-pd-type active' : 'wc-pd-type',
-    onClick: () => set({
-      type: t.k
-    })
-  }, wcH(Icon, {
-    name: t.i,
-    className: "w-6 h-6"
-  }), wcH("b", null, t.k === 'mix' ? 'مختلط: تمويل خارجي وفريق خارجي' : t.t), wcH("small", null, t.d)))))), wcH("div", {
-    className: "wc-pd-grid3"
-  }, card('target', 'الإنتاجية المتوقعة', `خلال فترة ${wcMonthsTxt(R.n)}`, wcH("div", null, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "مبلغ الإنتاجية المتوقعة"), wcH("div", {
+  }, h("b", null, k), h("span", null, "شهر")))), lbl("مبلغ الإنتاجية المتوقعة"), h("div", {
     className: "wc-pd-money"
   }, numIn(P.amount, v => set({
     amount: Math.max(0, v)
-  })), wcH("span", null, "ريال"))), wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "توزيع الإنتاجية على الأشهر"), wcH("div", {
+  })), h("span", null, "ريال")), lbl("توزيع الإنتاجية على الأشهر"), h("div", {
     className: "wc-seg wc-seg-sm"
-  }, [['fixed', 'ثابت'], ['manual', 'يدوي']].map(([k, l]) => wcH("button", {
+  }, [['fixed', 'ثابت'], ['manual', 'يدوي']].map(([k, l]) => h("button", {
     key: k,
     className: (P.fundMode === 'manual' ? 'manual' : 'fixed') === k ? 'active' : '',
     onClick: () => setMode(k)
-  }, l)))), wcH("div", {
+  }, l))), h("div", {
     className: "wc-pd-note"
-  }, R.manual ? 'أدخل إنتاجية كل شهر في الجدول أدناه' : wcH(React.Fragment, null, "كل شهر ", wcH("b", null, fd(R.total / R.n)), " ريال")), extMis && wcH("div", {
+  }, R.manual ? 'عدّل إنتاجية كل شهر من الجدول الشهري (الخطوة ٧)' : h(React.Fragment, null, "كل شهر ", h("b", null, fd(R.total / R.n)), " ريال")), extMis && h("div", {
     className: "wc-pd-warn"
-  }, "الموزّع يدوياً ", fd(R.prodSum), " — الإنتاجية المتوقعة ", fd(R.total)), R.type === 'mix' && wcH("div", {
-    className: "wc-pd-split"
-  }, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "إنتاجية التمويل الخارجي"), wcH("div", {
-    className: "wc-pd-money"
-  }, numIn(Math.min(P.extAmount, P.amount), v => set({
-    extAmount: Math.max(0, Math.min(v, safeNum(P.amount)))
-  })), wcH("span", null, "ريال"))), wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "إنتاجية الفريق الخارجي (الباقي)"), wcH("div", {
-    className: "wc-pd-static"
-  }, fd(R.teamProd), wcH("span", null, " ريال"))), wcH("div", {
-    className: "wc-pd-bar"
-  }, wcH("i", {
-    className: "f",
-    style: {
-      width: `${R.total > 0 ? R.extProd / R.total * 100 : 0}%`
-    }
-  }, R.total > 0 && R.extProd > 0 ? `تمويل ${formatDisplay(R.extProd / R.total * 100, 0)}%` : ''), wcH("i", {
-    className: "t",
-    style: {
-      width: `${R.total > 0 ? R.teamProd / R.total * 100 : 0}%`
-    }
-  }, R.total > 0 && R.teamProd > 0 ? `فريق ${formatDisplay(R.teamProd / R.total * 100, 0)}%` : ''))))), showExt && card('landmark', 'التمويل المطلوب', 'التمويل الخارجي', wcH("div", null, wcH("div", {
-    className: "wc-pd-big"
-  }, fd(R.extFund), wcH("span", null, " ريال")), wcH("div", {
-    className: "wc-pd-formula"
-  }, fd(R.extProd), " ÷ (100% + ", pc(R.roc, 2), ")"), wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "التمويل الشهري"), wcH("div", {
-    className: "wc-pd-note"
-  }, "تمويل كل شهر = إنتاجية الشهر ÷ (100% + ", pc(R.roc, 2), ")")), wcH("div", {
-    className: "wc-pd-note"
-  }, R.manual ? 'يتغير تلقائياً حسب الإنتاجية الشهرية في الجدول' : wcH(React.Fragment, null, "كل شهر ", wcH("b", null, fd(R.extFund / R.n)), " ريال")))), showTeam && card('hard-hat', 'الفريق الخارجي', R.type === 'mix' ? 'حصة وسام الاتحاد من إنتاجية الفريق' : 'حصة وسام الاتحاد من الإنتاجية', wcH("div", null, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "حصة وسام الاتحاد من الإنتاجية"), wcH("div", {
-    className: "wc-pd-money wc-pd-pctin"
-  }, numIn(P.teamWesPct, v => set({
-    teamWesPct: Math.min(100, Math.max(0, v))
-  }), 1), wcH("span", null, "%"))), wcH("div", {
-    className: "wc-pd-two"
-  }, wcH("div", null, wcH("small", null, "حصة وسام الاتحاد"), wcH("b", null, fd(R.teamWes))), wcH("div", null, wcH("small", null, "مستحقات الفريق (", pc(100 - R.twPct), ") — تكلفة"), wcH("b", null, fd(R.teamFund)))), R.type === 'mix' ? wcH("div", {
-    className: "wc-pd-note"
-  }, "تكاليف الإدارة محمّلة مع التمويل الخارجي") : wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "توزيع المستحقات على الأشهر"), wcH("div", {
-    className: "wc-seg wc-seg-sm"
-  }, [['fixed', 'ثابت'], ['manual', 'يدوي']].map(([k, l]) => wcH("button", {
-    key: k,
-    className: (P.fundMode === 'manual' ? 'manual' : 'fixed') === k ? 'active' : '',
-    onClick: () => setMode(k)
-  }, l)))), teamMis && wcH("div", {
-    className: "wc-pd-warn"
-  }, "الموزّع يدوياً ", fd(R.teamFSum), " — المطلوب ", fd(R.teamFund)))), R.type === 'team' && card('briefcase', 'تكاليف الإدارة', 'تُخصم من حصة وسام الاتحاد', wcH("div", null, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "قيمة تكاليف الإدارة"), wcH("div", {
-    className: "wc-pd-money"
-  }, numIn(P.mgmt, v => set({
-    mgmt: Math.max(0, v)
-  })), wcH("span", null, "ريال"))), wcH("div", {
-    className: "wc-pd-note"
-  }, "صافي الربح = ", fd(R.teamWes), " − ", fd(R.mgmt), " = ", wcH("b", null, fd(R.wesNet))))), showExt && card('pie-chart', 'تقسيم الربح', 'صافي ربح التمويل الخارجي', wcH("div", null, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "حصة وسام الاتحاد من الربح"), wcH("div", {
+  }, "الموزّع يدوياً ", fd(R.prodSum), " — الإنتاجية المتوقعة ", fd(R.total))), h("div", {
+    className: "wc-cs-viz"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "الإنتاجية الشهرية"), h("span", null, "مليون ريال • الإجمالي ", fd(R.prodSum))), bars(prodVals, 'p')))), step(2, 'landmark', 'التمويل المطلوب', 'يموّل المستثمرون تكاليف الإنتاجية فقط؛ نحسبها بقسمة الإنتاجية على (100% + العائد على التكلفة).', h("div", {
+    className: "wc-cs-row"
+  }, h("div", {
+    className: "wc-cs-panel"
+  }, h("div", {
+    className: "wc-cs-eq"
+  }, eqv('الإنتاجية المتوقعة', fd(R.extProd)), op('÷'), eqv('100% + العائد على التكلفة', pc(100 + R.roc, 2)), op('='), eqv('التمويل المطلوب', fd(R.extFund), 'hl')), h("div", {
+    className: "wc-cs-explain"
+  }, h(Icon, {
+    name: "info",
+    className: "w-4 h-4"
+  }), h("span", null, "العائد على التكلفة ", h("b", null, pc(R.roc, 2)), " يأتي من صفحة الإيرادات والتكاليف والأرباح (صافي الربح ÷ التكاليف لإنتاجية الوسام). تمويل كل شهر = إنتاجية الشهر ÷ ", pc(100 + R.roc, 2), "."))), h("div", {
+    className: "wc-cs-viz"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "التمويل الشهري"), h("span", null, "مليون ريال • الإجمالي ", fd(R.extFSum))), bars(fundVals, 'f')))), step(3, 'pie-chart', 'صافي الربح وتقسيمه', 'الفرق بين الإنتاجية والتمويل هو صافي الربح، ويُقسم بين وسام الاتحاد والتمويل الخارجي بالنسبة المتفق عليها.', h("div", {
+    className: "wc-cs-row"
+  }, h("div", {
+    className: "wc-cs-panel"
+  }, h("div", {
+    className: "wc-cs-eq"
+  }, eqv('الإنتاجية', fd(R.extProd)), op('−'), eqv('التمويل', fd(R.extFund)), op('='), eqv('صافي الربح', fd(R.extNet), 'hl')), lbl("حصة وسام الاتحاد من صافي الربح"), h("div", {
     className: "wc-pd-money wc-pd-pctin"
   }, numIn(P.wesShare, v => set({
     wesShare: Math.min(100, Math.max(0, v))
-  }), 1), wcH("span", null, "%"))), wcH("div", {
-    className: "wc-pd-two"
-  }, wcH("div", null, wcH("small", null, "حصة التمويل الخارجي (تلقائي)"), wcH("b", null, pc(100 - R.wsPct))), wcH("div", null, wcH("small", null, "صافي الربح"), wcH("b", null, fd(R.extNet)))), wcH("div", {
-    className: "wc-pd-bar"
-  }, wcH("i", {
-    className: "w",
-    style: {
-      width: `${R.wsPct}%`
-    }
-  }, R.wsPct >= 12 ? `وسام ${formatDisplay(R.wsPct, 0)}%` : ''), wcH("i", {
+  }), 1), h("span", null, "%")), h("div", {
+    className: "wc-pd-note"
+  }, "حصة التمويل الخارجي تلقائياً ", h("b", null, pc(100 - R.wsPct, 1)))), h("div", {
+    className: "wc-cs-viz"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "تقسيم صافي الربح"), h("span", null, fd(R.extNet), " ريال")), h("div", {
+    className: "wc-cs-split"
+  }, h("i", {
     className: "f",
     style: {
       width: `${100 - R.wsPct}%`
     }
-  }, 100 - R.wsPct >= 12 ? `الممول ${formatDisplay(100 - R.wsPct, 0)}%` : '')))), card('receipt', 'فترة التحصيل (الفوترة)', 'توزيع التحصيل بنسب % في الجدول', wcH("div", null, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "مدة التحصيل"), wcH("div", {
+  }, 100 - R.wsPct >= 12 ? `الممول ${formatDisplay(100 - R.wsPct, 0)}%` : ''), h("i", {
+    className: "w",
+    style: {
+      width: `${R.wsPct}%`
+    }
+  }, R.wsPct >= 12 ? `وسام ${formatDisplay(R.wsPct, 0)}%` : '')), h("div", {
+    className: "wc-cs-duo"
+  }, h("div", {
+    className: "f"
+  }, h("small", null, "صافي ربح التمويل الخارجي"), h("b", null, fd(R.funderNet)), h("span", null, pc(100 - R.wsPct, 0), " من صافي الربح")), h("div", {
+    className: "w"
+  }, h("small", null, "صافي ربح وسام الاتحاد"), h("b", null, fd(R.wesExt)), h("span", null, pc(R.wsPct, 0), " من صافي الربح")))))), step(4, 'users', 'محفظة المستثمرين', 'يتوزع التمويل المطلوب على المستثمرين بحصصهم، ويدخل كل مستثمر بحصته في كل شهر؛ فالعائد واحد للجميع والربح حسب المبلغ.', h(WcInvPortfolio, {
+    R,
+    set
+  })), step(5, 'receipt', 'التحصيل وتوزيع رأس المال والأرباح', 'تُحصَّل الإنتاجية على أشهر الفوترة، ويوزَّع النقد المتاح على فترات بعد هامش الأمان وبنسب النتيجة النهائية.', h("div", {
+    className: "wc-cs-row"
+  }, h("div", {
+    className: "wc-cs-panel"
+  }, h("div", {
+    className: "wc-cs-two"
+  }, h("div", null, lbl("مدة التحصيل (الفوترة)"), h("div", {
     className: "wc-pd-money wc-pd-pctin"
-  }, numIn(R.m, v => v > 0 && setColl(v)), wcH("span", null, "شهر"))), wcH("div", {
+  }, numIn(R.m, v => v > 0 && setColl(v)), h("span", null, "شهر"))), h("div", null, lbl("هامش الأمان"), h("div", {
+    className: "wc-pd-money"
+  }, numIn(R.distMargin, v => set({
+    distMargin: Math.max(0, v)
+  })), h("span", null, "ريال")))), h("div", {
+    className: "wc-cs-inline"
+  }, h("div", {
     className: `wc-pd-sum ${sumOk ? 'ok' : 'bad'}`
-  }, "مجموع النسب ", pc(R.pSum, 2)), wcH("div", {
-    className: "wc-pd-actions"
-  }, wcH("button", {
+  }, "مجموع نسب الفوترة ", pc(R.pSum, 2)), h("button", {
+    className: "wc-cs-mini",
     onClick: () => set({
       collPct: Array.from({
         length: R.m
       }, () => Math.round(10000 / R.m) / 100)
     })
-  }, "توزيع بالتساوي"), R.m === 18 && wcH("button", {
-    onClick: () => set({
-      collPct: WC_PROD_COLL18.slice()
-    })
-  }, "النسب الافتراضية")))), showExt && card('split', 'توزيع رأس المال والأرباح', 'من الفوترة (التحصيل) المتوقعة', wcH("div", null, wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "هامش الأمان (لا يبدأ التوزيع قبل تجاوزه)"), wcH("div", {
-    className: "wc-pd-money"
-  }, numIn(R.distMargin, v => set({
-    distMargin: Math.max(0, v)
-  })), wcH("span", null, "ريال"))), wcH("div", {
-    className: "wc-pd-field"
-  }, wcH("label", null, "فترات التوزيع"), wcH("div", {
+  }, "فوترة بالتساوي")), lbl("فترات التوزيع"), h("div", {
     className: "wc-seg wc-seg-sm"
-  }, [[3, 'ربع سنوي'], [6, 'نصف سنوي'], [12, 'سنوي']].map(([k, l]) => wcH("button", {
+  }, [[3, 'ربع سنوي'], [6, 'نصف سنوي'], [12, 'سنوي']].map(([k, l]) => h("button", {
     key: k,
     className: R.distFreq === k ? 'active' : '',
     onClick: () => set({
       distFreq: k
     })
-  }, l)))), wcH("div", {
+  }, l))), lbl("كل توزيع يُقسم بنسب النتيجة النهائية"), h("div", {
     className: "wc-pd-shares"
-  }, wcH("div", null, wcH("small", null, "استرداد رأس المال"), wcH("b", null, pc(R.shC * 100, 1))), wcH("div", {
+  }, h("div", null, h("small", null, "استرداد رأس المال"), h("b", null, pc(R.shC * 100, 1))), h("div", {
     className: "f"
-  }, wcH("small", null, "ربح التمويل الخارجي"), wcH("b", null, pc(R.shF * 100, 1))), wcH("div", {
+  }, h("small", null, "ربح التمويل الخارجي"), h("b", null, pc(R.shF * 100, 1))), h("div", {
     className: "w"
-  }, wcH("small", null, "ربح وسام الاتحاد"), wcH("b", null, pc(R.shW * 100, 1)))), wcH("div", {
-    className: "wc-pd-note"
-  }, "كل توزيع يُقسم بنسب النتيجة النهائية")))), wcH("div", {
-    className: "wc-pd-results"
-  }, wcH("div", {
-    className: "wc-pd-results-h"
-  }, wcH("b", null, "النتيجة النهائية — إنتاجية ", R.n, " شهر"), wcH("span", null, WC_PROD_TYPES.find(t => t.k === R.type).t)), wcH("div", {
-    className: "wc-pd-kpis"
-  }, kpis.map(([l, v, s, ic, c], i) => wcH("div", {
+  }, h("small", null, "ربح وسام الاتحاد"), h("b", null, pc(R.shW * 100, 1))))), h("div", {
+    className: "wc-cs-viz"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "الفوترة والتوزيعات"), h("span", null, "أول توزيع: ", firstDist ? `الشهر ${firstDist.m}` : '—', " • إجمالي التوزيعات ", fd(distTot))), h(WcChart, {
+    type: 'bar',
+    height: 280,
+    data: {
+      labels: R.rows.map(r => `ش${r.m}`),
+      datasets: [{
+        type: 'line',
+        label: 'الرصيد بعد التوزيع',
+        data: R.rows.map(r => r.after / 1e6),
+        borderColor: '#163A5F',
+        borderDash: [5, 4],
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: .3
+      }, {
+        label: 'الفوترة (التحصيل)',
+        data: R.rows.map(r => r.bill / 1e6),
+        backgroundColor: '#2E8B8B',
+        borderRadius: 4,
+        maxBarThickness: 14
+      }, {
+        label: 'التوزيع',
+        data: R.rows.map(r => r.dist / 1e6),
+        backgroundColor: '#C9A24A',
+        borderRadius: 4,
+        maxBarThickness: 14
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            boxWidth: 10,
+            font: {
+              weight: 'bold'
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: c => `${c.dataset.label}: ${formatDisplay(c.raw * 1e6)}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            maxRotation: 0,
+            autoSkip: true,
+            autoSkipPadding: 6
+          }
+        },
+        y: {
+          grid: {
+            color: '#EEF2F7'
+          },
+          ticks: {
+            callback: v => `${v}M`
+          }
+        }
+      }
+    }
+  })))), step(6, 'trophy', 'النتيجة النهائية والعائد', 'خلاصة الأرقام لإنتاجية الفترة، وتسلسل الحساب خطوة بخطوة، والعائد السنوي لكل مبلغ تمويل حتى استرداده.', h("div", null, h("div", {
+    className: "wc-pd-kpis wc-cs-kpis"
+  }, kpis.map(([l, v, s, ic, c], i) => h("div", {
     key: i,
     className: `wc-pd-kpi ${c}`
-  }, wcH(Icon, {
+  }, h(Icon, {
     name: ic,
     className: "w-5 h-5"
-  }), wcH("span", null, l), wcH("b", null, v), wcH("small", null, s)))), R.total > 0 && wcH("div", null, wcH("div", {
+  }), h("span", null, l), h("b", null, v), h("small", null, s)))), R.total > 0 && h("div", {
+    className: "wc-cs-compo"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "تكوين الإنتاجية"), h("span", null, fd(R.total), " ريال")), h("div", {
     className: "wc-pd-stack"
-  }, segs.map(([l, v, c], i) => wcH("i", {
+  }, segs.map(([l, v, c], i) => h("i", {
     key: i,
     className: c,
     style: {
       width: `${Math.max(0, v) / R.total * 100}%`
     },
     title: `${l}: ${fd(v)}`
-  }, v / R.total >= .05 ? `${formatDisplay(v / R.total * 100, 1)}%` : ''))), wcH("div", {
+  }, v / R.total >= .05 ? `${formatDisplay(v / R.total * 100, 1)}%` : ''))), h("div", {
     className: "wc-pd-legend"
-  }, segs.map(([l, v, c], i) => wcH("span", {
+  }, segs.map(([l, v, c], i) => h("span", {
     key: i
-  }, wcH("i", {
+  }, h("i", {
     className: c
-  }), l, " ", wcH("b", null, fd(v)), " ", wcH("em", {
-    className: "wc-pd-legend-pct"
-  }, "(", wcH("bdi", null, formatDisplay(R.total > 0 ? v / R.total * 100 : 0, 1), "%"), ")")))))), wcH("div", {
-    className: "wc-pd-card"
-  }, wcH("div", {
-    className: "wc-pd-card-h"
-  }, wcH("span", {
-    className: "wc-pd-ico"
-  }, wcH(Icon, {
-    name: "table",
-    className: "w-5 h-5"
-  })), wcH("div", null, wcH("b", null, "الجدول الشهري للتمويل والإنتاجية والفوترة"), wcH("small", null, R.manual ? 'الإنتاجية يدوية: عدّل إنتاجية كل شهر' : 'الإنتاجية ثابتة', " • التمويل = الإنتاجية ÷ (100% + العائد على التكلفة) • نسبة الفوترة قابلة للتعديل"))), wcH("div", {
-    className: "wc-table-wrap wc-table-scroll"
-  }, wcH("table", {
-    className: "wc-table wc-table-compact wc-pd-table"
-  }, wcH("thead", null, wcH("tr", null, cols.map((c, i) => wcH("th", {
+  }), l, " ", h("b", null, fd(v)))))), h("div", {
+    className: "wc-cs-row wc-cs-row-b"
+  }, h("div", {
+    className: "wc-cs-panel"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "كيف حُسبت النتيجة"), h("span", null, "خطوة بخطوة")), h("ol", {
+    className: "wc-cs-trail"
+  }, steps.map(([t, v], i) => h("li", {
     key: i
-  }, c)))), wcH("tbody", null, R.rows.map((r, i) => wcH("tr", {
+  }, h("span", null, t), h("b", null, v))))), R.tranches.length > 0 && h("div", {
+    className: "wc-cs-panel"
+  }, h("div", {
+    className: "wc-cs-viz-h"
+  }, h("b", null, "العائد السنوي لكل مبلغ تمويل"), h("span", null, "حتى استرداد رأس المال وربحه")), h("div", {
+    className: "wc-table-wrap wc-table-scroll"
+  }, h("table", {
+    className: "wc-table wc-table-compact wc-pd-table"
+  }, h("thead", null, h("tr", null, ['شهر التمويل', 'مبلغ التمويل', 'الربح', 'شهر الاسترداد', 'المدة', 'العائد السنوي'].map((c, i) => h("th", {
+    key: i
+  }, c)))), h("tbody", null, R.tranches.map((t, i) => h("tr", {
+    key: i
+  }, h("td", {
+    className: "wc-td-month"
+  }, t.m), h("td", null, fd(t.amt)), h("td", null, fd(t.prof)), h("td", null, t.rec), h("td", null, t.held), h("td", null, pc(t.annual, 1))))), h("tfoot", null, h("tr", null, h("td", null, "المتوسط"), h("td", null, fd(R.tranches.reduce((a, t) => a + t.amt, 0))), h("td", null, fd(R.tranches.reduce((a, t) => a + t.prof, 0))), h("td", null, ""), h("td", null, formatDisplay(R.tranches.reduce((a, t) => a + t.held, 0) / R.tranches.length, 1)), h("td", null, h("b", null, pc(R.roiAnnual, 1))))))))))), step(7, 'table', 'الجدول الشهري التفصيلي', R.manual ? 'الإنتاجية يدوية: عدّل إنتاجية كل شهر ونسبة فوترته من الجدول؛ التمويل والتوزيعات تُحسب تلقائياً.' : 'التمويل = الإنتاجية ÷ (100% + العائد على التكلفة) • نسبة الفوترة قابلة للتعديل • الأشهر المظللة أشهر توزيع.', h("div", {
+    className: "wc-table-wrap wc-table-scroll"
+  }, h("table", {
+    className: "wc-table wc-table-compact wc-pd-table"
+  }, h("thead", null, h("tr", null, cols.map((c, i) => h("th", {
+    key: i
+  }, c)))), h("tbody", null, R.rows.map((r, i) => h("tr", {
     key: i,
     className: `${i >= R.n ? 'wc-pd-after' : ''} ${r.dist > 0.5 ? 'wc-pd-distrow' : ''}`
-  }, rowCells(r, i).map((c, j) => wcH("td", {
+  }, rowCells(r, i).map((c, j) => h("td", {
     key: j,
     className: j === 0 ? 'wc-td-month' : ''
-  }, c))))), wcH("tfoot", null, wcH("tr", null, totCells.map((c, i) => wcH("td", {
+  }, c))))), h("tfoot", null, h("tr", null, totCells.map((c, i) => h("td", {
     key: i
-  }, c))))))), showExt && R.tranches.length > 0 && wcH("div", {
-    className: "wc-pd-card"
-  }, wcH("div", {
-    className: "wc-pd-card-h"
-  }, wcH("span", {
-    className: "wc-pd-ico"
-  }, wcH(Icon, {
-    name: "calendar-clock",
-    className: "w-5 h-5"
-  })), wcH("div", null, wcH("b", null, "العائد السنوي لكل مبلغ تمويل"), wcH("small", null, "من شهر التمويل حتى استرداد رأس المال وربحه (الأقدم يُسترد أولاً) • العائد السنوي = ربح التمويل ÷ المبلغ × 12 ÷ المدة"))), wcH("div", {
-    className: "wc-table-wrap wc-table-scroll"
-  }, wcH("table", {
-    className: "wc-table wc-table-compact wc-pd-table"
-  }, wcH("thead", null, wcH("tr", null, ['شهر التمويل', 'مبلغ التمويل', 'ربح التمويل الخارجي', 'شهر الاسترداد الكامل', 'المدة (شهر)', 'العائد السنوي'].map((c, i) => wcH("th", {
-    key: i
-  }, c)))), wcH("tbody", null, R.tranches.map((t, i) => wcH("tr", {
-    key: i
-  }, wcH("td", {
-    className: "wc-td-month"
-  }, t.m), wcH("td", null, fd(t.amt)), wcH("td", null, fd(t.prof)), wcH("td", null, t.rec), wcH("td", null, t.held), wcH("td", null, pc(t.annual, 1))))), wcH("tfoot", null, wcH("tr", null, wcH("td", null, "المتوسط"), wcH("td", null, fd(R.tranches.reduce((a, t) => a + t.amt, 0))), wcH("td", null, fd(R.tranches.reduce((a, t) => a + t.prof, 0))), wcH("td", null, ""), wcH("td", null, formatDisplay(R.tranches.reduce((a, t) => a + t.held, 0) / R.tranches.length, 1)), wcH("td", null, wcH("b", null, pc(R.roiAnnual, 1)))))))));
+  }, c))))))));
 };
 const CombinedProdSummary = ({
   contractMap,
@@ -7948,17 +8366,6 @@ const ExecDashboard2 = ({
   }, wcH("small", null, "صافي الربح"), wcH("b", null, X.NP < 0 ? '−' : '', M(Math.abs(X.NP))), wcH("span", null, "مليون ريال"))), wcH("div", {
     className: "wc-db-rings"
   }, wcH(WcRing, {
-    value: X.roc,
-    max: 50,
-    label: 'العائد على التكلفة',
-    sub: 'صافي الربح ÷ التكاليف'
-  }), wcH(WcRing, {
-    value: X.margin,
-    max: 50,
-    label: 'صافي الربح %',
-    sub: 'من إنتاجية الوسام',
-    color: '#7DD3C7'
-  }), wcH(WcRing, {
     value: P.roi,
     max: 50,
     label: 'معدل العائد على الاستثمار',
@@ -8116,7 +8523,117 @@ const ExecDashboard2 = ({
         }
       }
     }
-  }))), sec("٣", "مقارنة فترات الإنتاجية — التمويل الخارجي", "صافي ربح الممول ومعدل العائد على الاستثمار لكل فترة إنتاجية • اضغط على أي فترة لعرضها"), wcH("div", {
+  }))), sec("٣", "محفظة المستثمرين", `حصة كل مستثمر من تمويل إنتاجية ${period} شهر وصافي ربحه وعائده — كما في صفحة هيكلة رأس المال`), wcH("div", {
+    className: "wc-db-grid-a wc-db-inv"
+  }, card('العائد لكل مستثمر', 'التمويل بالتناسب في كل شهر — العائد واحد للجميع', wcH("table", {
+    className: "wc-db-dtable wc-db-inv-tbl"
+  }, wcH("thead", null, wcH("tr", null, wcH("th", null, "المستثمر"), wcH("th", null, "مبلغ المساهمة"), wcH("th", null, "الحصة"), wcH("th", null, "صافي الربح"), wcH("th", null, "العائد على الاستثمار"), wcH("th", null, "العائد السنوي"), wcH("th", null, "شهر الاسترداد"))), wcH("tbody", null, P.inv.list.map(v => wcH("tr", {
+    key: v.i
+  }, wcH("td", null, wcH("span", {
+    className: "dot",
+    style: {
+      background: v.color
+    }
+  }), wcH("b", null, v.name)), wcH("td", null, fd(v.amount)), wcH("td", null, pc(P.extFSum > 0 ? v.amount / P.extFSum * 100 : 0, 1)), wcH("td", null, wcH("b", {
+    style: {
+      color: '#1F6B6B'
+    }
+  }, fd(v.profit))), wcH("td", null, pc(v.roi, 1)), wcH("td", null, wcH("b", {
+    style: {
+      color: '#8A6A1F'
+    }
+  }, pc(v.annual, 1))), wcH("td", null, v.rec || '—')))), wcH("tfoot", null, wcH("tr", null, wcH("td", null, "الإجمالي"), wcH("td", null, fd(P.inv.list.reduce((a, v) => a + v.amount, 0))), wcH("td", null, pc(P.extFSum > 0 ? P.inv.list.reduce((a, v) => a + v.amount, 0) / P.extFSum * 100 : 0, 1)), wcH("td", null, fd(P.inv.list.reduce((a, v) => a + v.profit, 0))), wcH("td", null, pc(P.roi, 1)), wcH("td", null, pc(P.roiAnnual, 1)), wcH("td", null, ""))))), card('توزيع التمويل وصافي الربح', 'مليون ريال لكل مستثمر', wcH(WcChart, {
+    type: 'bar',
+    height: 250,
+    data: {
+      labels: P.inv.list.map(v => v.name),
+      datasets: [{
+        label: 'مبلغ المساهمة',
+        data: P.inv.list.map(v => v.amount / 1e6),
+        backgroundColor: c => {
+          const a = c.chart.chartArea;
+          if (!a) return '#163A5F';
+          const g = c.chart.ctx.createLinearGradient(0, a.bottom, 0, a.top);
+          g.addColorStop(0, '#0E2742');
+          g.addColorStop(1, '#2B5583');
+          return g;
+        },
+        hoverBackgroundColor: '#0E2742',
+        borderRadius: 8,
+        borderSkipped: false,
+        categoryPercentage: .62,
+        barPercentage: .9,
+        maxBarThickness: 40
+      }, {
+        label: 'صافي الربح',
+        data: P.inv.list.map(v => v.profit / 1e6),
+        backgroundColor: c => {
+          const a = c.chart.chartArea;
+          if (!a) return '#C9A24A';
+          const g = c.chart.ctx.createLinearGradient(0, a.bottom, 0, a.top);
+          g.addColorStop(0, '#B08A35');
+          g.addColorStop(1, '#E2C276');
+          return g;
+        },
+        hoverBackgroundColor: '#B08A35',
+        borderRadius: 8,
+        borderSkipped: false,
+        categoryPercentage: .62,
+        barPercentage: .9,
+        maxBarThickness: 40
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            usePointStyle: true,
+            pointStyle: 'rectRounded',
+            boxWidth: 10,
+            color: '#334155',
+            font: {
+              weight: 'bold'
+            }
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: c => `${c.dataset.label}: ${M(c.raw * 1e6)} مليون`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          border: {
+            color: '#E2E8F0'
+          },
+          ticks: {
+            color: '#334155',
+            font: {
+              weight: 'bold'
+            }
+          }
+        },
+        y: {
+          beginAtZero: true,
+          border: {
+            display: false
+          },
+          grid: {
+            color: '#F1F5F9'
+          },
+          ticks: {
+            color: '#94a3b8',
+            callback: v => `${v}M`
+          }
+        }
+      }
+    }
+  }))), sec("٤", "مقارنة فترات الإنتاجية — التمويل الخارجي", "صافي ربح الممول ومعدل العائد على الاستثمار لكل فترة إنتاجية • اضغط على أي فترة لعرضها"), wcH("div", {
     className: "wc-db-periods"
   }, all.map(a => wcH("button", {
     key: a.pp,
