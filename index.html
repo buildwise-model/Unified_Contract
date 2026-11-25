@@ -1077,6 +1077,14 @@ aside.bg-white { border-left: 4px solid var(--wc-maroon) !important; }
 
 @media (max-width: 900px) { .wc-inv-sum { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
+
+.wc-db-invmode { display: flex; align-items: center; gap: .9rem; flex-wrap: wrap; background: #fff; border: 1px solid #E6EDF5; border-radius: 1.2rem; padding: .7rem 1rem; box-shadow: 0 14px 30px -28px rgba(14,39,66,.7); }
+.wc-db-invmode > span { font-size: 13px; font-weight: 900; color: #0E2742; }
+.wc-db-invmode small { font-size: 12px; font-weight: 800; color: #64748b; }
+.wc-db-invmode-seg { display: inline-flex; background: #F1F5F9; border-radius: .95rem; padding: .25rem; gap: .25rem; }
+.wc-db-invmode-seg button { display: inline-flex; align-items: center; gap: .4rem; border: 0; background: transparent; border-radius: .75rem; padding: .5rem 1rem; font: inherit; font-size: 13px; font-weight: 900; color: #475569; cursor: pointer; transition: all .2s; }
+.wc-db-invmode-seg button.active { background: linear-gradient(150deg, #163A5F, #0E2742); color: #E2C276; box-shadow: 0 8px 18px -10px rgba(14,39,66,.9); }
+.wc-db-invmode-seg button:not(.active):hover { background: #fff; color: #0E2742; }
 .wc-inv-dt-wrap { overflow-x: auto; border-radius: 1.1rem; border: 1px solid #E6EDF5; }
 .wc-inv-dt { width: 100%; border-collapse: collapse; font-size: 14px; }
 .wc-inv-dt thead th { background: linear-gradient(150deg, #163A5F, #0E2742); color: #fff; font-size: 12.5px; font-weight: 900; padding: .95rem .8rem; text-align: center; white-space: nowrap; }
@@ -8323,7 +8331,8 @@ const ExecDashboard2 = ({
   prodCap,
   period,
   setPeriod,
-  wesProdMap
+  wesProdMap,
+  setProdCap
 }) => {
   const d = safeNum(cs?.duration) || 36;
   const R = safeNum(cs?.revenue);
@@ -8642,6 +8651,26 @@ const ExecDashboard2 = ({
   const costTol = X.Cp > 0 ? (X.W - X.Cp) / X.Cp * 100 : 0;
   const prodTol = X.W > 0 ? (X.W - X.Cp) / X.W * 100 : 0;
   const covPct = P.inv.fTot > 0 ? P.inv.covered / P.inv.fTot * 100 : 0;
+  // تغيير طريقة تمويل المحفظة من الداشبورد (تُحفظ لإعدادات الفترة الحالية)
+  const setInvMode = k => setProdCap && setProdCap(p => {
+    const cur = wcProdSettings(p);
+    const pr = p.prod || {};
+    const byM = pr.byM || {};
+    return {
+      ...p,
+      prod: {
+        ...pr,
+        months: cur.months,
+        byM: {
+          ...byM,
+          [cur.months]: {
+            ...wcProdSnap(cur),
+            invMode: k
+          }
+        }
+      }
+    };
+  });
   // مستوى المخاطر ثابت لكل الفترات: يُحسب دائماً من إنتاجية 12 شهر
   const rS12 = wcProdSettings({
     prod: {
@@ -8904,7 +8933,18 @@ const ExecDashboard2 = ({
     }
   }))), sec("٣", "محفظة المستثمرين", `حصة كل مستثمر من تمويل إنتاجية ${period} شهر وصافي ربحه وعائده — كما في صفحة هيكلة رأس المال`), wcH("div", {
     className: "wc-db-grid-a wc-db-inv"
-  }, card('العائد لكل مستثمر', `التمويل ${(WC_INV_MODES.find(([k]) => k === P.inv.mode) || [, ''])[1]} • رأس المال والعائد يُستردان مع التوزيعات`, wcH("div", {
+  }, wcH("div", {
+    className: "wc-db-invmode"
+  }, wcH("span", null, "طريقة تمويل المحفظة"), wcH("div", {
+    className: "wc-db-invmode-seg"
+  }, WC_INV_MODES.map(([k, l]) => wcH("button", {
+    key: k,
+    className: P.inv.mode === k ? 'active' : '',
+    onClick: () => setInvMode(k)
+  }, wcH(Icon, {
+    name: k === 'pro' ? 'percent' : 'calendar-check',
+    className: "w-4 h-4"
+  }), l))), wcH("small", null, P.inv.mode === 'pro' ? 'كل مستثمر يدخل بحصته في كل شهر — العائد واحد للجميع والربح حسب المبلغ' : 'مبالغ كل مستثمر في كل شهر كما في خريطة التمويل بصفحة هيكلة رأس المال')), card('العائد لكل مستثمر', `التمويل ${(WC_INV_MODES.find(([k]) => k === P.inv.mode) || [, ''])[1]} • رأس المال والعائد يُستردان مع التوزيعات`, wcH("div", {
     className: "wc-inv-dt-wrap"
   }, wcH("table", {
     className: "wc-inv-dt"
@@ -13547,6 +13587,7 @@ const App = () => {
     prodCap: prodCap,
     period: prodPeriod,
     setPeriod: setProdPeriod,
+    setProdCap: setProdCap,
     wesProdMap: wesProdMap
   }), false && wcH(ExecDashboard, {
     key: `ex_${contractKey}`,
